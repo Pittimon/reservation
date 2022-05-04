@@ -1,0 +1,62 @@
+<template>
+    <v-navigation-drawer v-model="drawer" app color="white" mini-variant mini-variant-width="120">
+      <v-list flat style="position: absolute; top: 15px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
+        <v-list-item-group v-model="selectItem">
+          <v-list-item active-class="border">
+            <v-list-item-content>
+              <v-avatar>
+                <v-icon size="40">mdi-account-circle</v-icon>
+              </v-avatar>
+              <v-list-item-subtitle align="center" class="mt-3 caption">MisterA</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-list flat style="position: absolute; top: 160px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
+        <v-list-item-group v-model="selectItem">
+          <v-list-item v-for="(item, i) in items" :key="i" active-class="border" :ripple="false" router :to="item.route">
+            <v-list-item-content>
+              <v-icon v-text="item.icon"></v-icon>
+              <v-list-item-subtitle align="center" v-text="item.text" class="mt-3 caption"></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <div style="position: absolute; bottom: 50px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
+        <v-icon>mdi-logout</v-icon><br><span class="caption">Logout</span>
+      </div>
+    </v-navigation-drawer>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      selectedItem: 0,
+      drawer: null,
+      items: [
+        { icon: 'mdi-home', text: 'Home', route: '/Home' },
+        { icon: 'mdi-food', text: 'Menu', route: '/' },
+        { icon: 'mdi-room-service', text: 'Bell', route: '/Bell' },
+        { icon: 'mdi-star', text: 'Reserve', route: '/Reserve' },
+        { icon: 'mdi-music-note', text: 'Song', route: '/Song' }
+      ]
+    }
+  }
+}
+</script>
+
+<style>
+.border {
+  margin-left: 8px;
+  margin-right: 8px;
+  background: #704232;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.v-list-item-group .v-list-item--active {
+  color: white !important;
+}
+.theme--light.v-list-item--active .v-list-item__subtitle, .theme--light.v-list-item .v-list__action-text {
+  color: white !important;
+}
+</style>
