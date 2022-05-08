@@ -2,6 +2,7 @@
   <v-app :style="{background: $vuetify.theme.themes.dark.background}">
     <SideBar/>
     <v-container>
+      <WriteToCloudFirestore/>
       <v-card class="f-flex align-center rounded-lg mx-2" height="650"
       style="top: 50px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;" flat>
         <v-row jusify="center">
@@ -41,12 +42,14 @@
 
 <script>
 import SideBar from '../components/SideBar.vue'
+import WriteToCloudFirestore from '../../component/cloudFirestore/Write'
 
 export default {
   name: 'Bell',
 
   components: {
-    SideBar
+    SideBar,
+    WriteToCloudFirestore
   },
   data() {
     return {
