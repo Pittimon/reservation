@@ -128,16 +128,17 @@
               </v-list-item-content>
             </v-list-item>
              <v-textarea
+             hide-details
               outlined
               auto-grow
               label="note"
               rows="2"
               row-height="20"
-              class="mx-5 my-0"
+              class="mx-4 my-0"
               color="#704232"
               ></v-textarea>
-            <v-card-actions>
-              <v-btn color="#704232" block dark class="withoutupercase mb-2 my-0">Add to cart</v-btn>
+            <v-card-actions class="px-4">
+              <v-btn color="#704232" block dark class="withoutupercase mb-2">Add to cart</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -180,7 +181,7 @@ export default {
   .v.card.borderme {
     border: 2px solid #704232 !important;
   }
-  .v.card.borderout{
+  .v.card.borderout {
     border: 1px solid #bcaaa4 !important;
   }
 </style>
