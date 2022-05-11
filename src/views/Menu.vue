@@ -121,15 +121,23 @@
                 <v-list-item-title class="text-h5 mx-5">
                   {{ menu.name }}
                 </v-list-item-title>
-                <v-list-item-subtitle class="mt-1">{{ menu.aboutmenu }}</v-list-item-subtitle>
-                <strong class="mt-3">
+                <v-list-item-subtitle class="mt-1 mx-6">{{ menu.aboutmenu }}</v-list-item-subtitle>
+                <strong class="mt-3 mx-6">
                   {{ menu.price }} bath
                 </strong>
               </v-list-item-content>
             </v-list-item>
-            <br>
+             <v-textarea
+              outlined
+              auto-grow
+              label="note"
+              rows="2"
+              row-height="20"
+              class="mx-5 my-0"
+              color="#704232"
+              ></v-textarea>
             <v-card-actions>
-              <v-btn color="#704232" block dark class="withoutupercase mb-2">Add Billing</v-btn>
+              <v-btn color="#704232" block dark class="withoutupercase mb-2 my-0">Add to cart</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
