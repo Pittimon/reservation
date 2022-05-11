@@ -1,8 +1,8 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes.dark.background}">
     <SideBar/>
+    <WriteToCloudFirestore/>
     <v-container>
-      <WriteToCloudFirestore/>
       <v-card class="f-flex align-center rounded-lg mx-2" height="650"
       style="top: 50px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;" flat>
         <v-row jusify="center">
@@ -12,7 +12,7 @@
             class="f-flex align-center rounded-lg mx-2" height="350" @click="toggle" flat>
             <v-list-item class="text-center mt-10" active-class="border">
               <v-list-item-content>
-                    <v-icon size="300" color="#704232">mdi-bell</v-icon>
+                    <v-icon @click="sentbell" size="300" color="#704232">mdi-bell</v-icon>
               </v-list-item-content>
             </v-list-item>
             </v-card>
@@ -51,9 +51,10 @@ export default {
     SideBar,
     WriteToCloudFirestore
   },
+  methods: {
+  },
   data() {
-    return {
-    }
+    return {}
   }
 }
 </script>
