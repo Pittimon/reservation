@@ -1,16 +1,20 @@
 <template>
   <div>
-      <Navigation v-if="!navigation" />
-        <router-view/>
-      <Footer v-if="!navigation" />
+      <SideBar v-if="!navigation" />
+      <div style="margin-left: 120px;">
+      <router-view/>
+      </div>
   </div>
 </template>
 
 <script>
+import SideBar from './components/SideBar.vue'
 
 export default {
   name: 'App',
-  // components: { Navigation, Footer },
+  components: {
+    SideBar
+  },
   data: () => {
     return {
       navigation: null
@@ -41,9 +45,9 @@ export default {
 * {
   font-family: 'Quicksand', sans-serif
 }
-.error {
+/* .error {
   text-align: center;
   font-size: 12px;
   color: red;
-}
+} */
 </style>

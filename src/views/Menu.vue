@@ -1,8 +1,7 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes.dark.background}">
-    <SideBar/>
     <SideBarRight/>
-    <v-container>
+    <v-container style="max-width: 1500px; margin-right: 900px;">
       <v-toolbar color="rgba(0,0,0,0)" flat>
         <v-spacer></v-spacer>
         <v-text-field label="Search menu" class="mt-5" color="brown" filled append-icon="mdi-magnify"
@@ -148,7 +147,6 @@
 </template>
 
 <script>
-import SideBar from '../components/SideBar.vue'
 import SideBarRight from '../components/SideBarRight.vue'
 
 export default {
@@ -172,12 +170,11 @@ export default {
     }
   },
   components: {
-    SideBar,
     SideBarRight
   }
 }
 </script>
-<style>
+<style scoped>
   .v.card.borderme {
     border: 2px solid #704232 !important;
   }

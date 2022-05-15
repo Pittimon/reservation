@@ -1,6 +1,5 @@
 <template>
 <v-app :style="{background: $vuetify.theme.themes.dark.background}">
-    <SideBar/>
 <div>
   <v-card color="#eeeeee">
     <v-container>
@@ -42,15 +41,13 @@
 <script>
 import Administrator from '../components/Administrator.vue'
 import Reservation from '../components/Reservation.vue'
-import SideBar from '../components/SideBar.vue'
 
 export default {
   name: 'Reserve',
 
   components: {
     Administrator,
-    Reservation,
-    SideBar
+    Reservation
   }
 }
 </script>

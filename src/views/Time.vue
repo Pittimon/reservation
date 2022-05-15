@@ -1,6 +1,5 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes.dark.background}">
-    <SideBar/>
     <v-card class="f-flex align-center rounded-lg mx-2" height="650"
       style="top: 50px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;" flat>
       <v-btn @click="timerfn" x-large flat icon><v-icon>mdi-bell</v-icon></v-btn>
@@ -11,13 +10,11 @@
 </template>
 
 <script>
-import SideBar from '../components/SideBar.vue'
 
 export default {
   name: 'Time',
 
   components: {
-    SideBar
   },
   data() {
     return {

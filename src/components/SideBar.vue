@@ -1,4 +1,6 @@
 <template>
+<div>
+  <v-card>
     <v-navigation-drawer v-model="drawer" app color="white" mini-variant mini-variant-width="120">
       <v-list flat style="position: absolute; top: 15px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
         <v-list-item-group v-model="selectItem">
@@ -26,32 +28,37 @@
         <v-icon>mdi-logout</v-icon><br><span class="caption">Logout</span>
       </div>
     </v-navigation-drawer>
+  </v-card>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      selectedItem: 0,
-      drawer: null,
+      selectedItem: '',
+      drawer: true,
+      mini: true,
       items: [
         { icon: 'mdi-home', text: 'Home', route: '/Home' },
         { icon: 'mdi-food', text: 'Menu', route: '/' },
         { icon: 'mdi-room-service', text: 'Bell', route: '/Bell' },
         { icon: 'mdi-star', text: 'Reserve', route: '/Reserve' },
-        { icon: 'mdi-music-note', text: 'Song', route: '/Song' }
+        { icon: 'mdi-music-note', text: 'Song', route: '/Song' },
+        { icon: 'mdi-account', text: 'Admin', route: '/Admin' }
       ]
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .border {
   margin-left: 8px;
   margin-right: 8px;
-  background: #704232;
+  background: #704232 !important;
   border-radius: 20px;
   text-decoration: none;
+  color: #704232;
 }
 .v-list-item-group .v-list-item--active {
   color: white !important;
