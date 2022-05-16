@@ -21,13 +21,15 @@
         <router-link class="forgotpassword" :to="{ name: 'ForgotPassword' }">
           Forgot your Password?
         </router-link>
-        <v-btn rounded depressed>Sign In</v-btn>
+        <v-btn rounded depressed @click.prevent="login">Sign In</v-btn>
         <div class="angle"></div>
       </form>
     <div class="background"></div>
   </div>
 </template>
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import email from '../assets/Icon/email.svg'
 import password from '../assets/Icon/password.svg'
 
@@ -40,7 +42,26 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      error: null
+    }
+  },
+  methods: {
+    async login() {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          const { user } = userCredential
+          console.log(user)
+          this.$router.push({ name: 'Home' })
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          console.log(errorCode)
+          console.log(errorMessage)
+        })
     }
   }
 }

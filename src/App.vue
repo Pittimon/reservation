@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import SideBar from './components/SideBar.vue'
 
 export default {
@@ -30,6 +32,21 @@ export default {
   },
   created() {
     this.checkRoute()
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const { uid } = user
+        console.log(uid)
+        this.$store.dispatch('setUserAction', uid)
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    })
   },
   watch: {
     $route() {

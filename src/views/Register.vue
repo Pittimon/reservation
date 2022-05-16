@@ -40,11 +40,12 @@
   </div>
 </template>
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import email from '../assets/Icon/email.svg'
 import password from '../assets/Icon/password.svg'
 import user from '../assets/Icon/user.svg'
-// import firebase from 'firebase/app'
-// import 'firebase/auth'
+
 // import db from '../firebase/initFirebase'
 
 export default {
@@ -64,30 +65,28 @@ export default {
       error: null,
       errorMsg: null
     }
+  },
+  methods: {
+    async register() {
+      if (this.email !== '' || this.password !== '' || this.firstname !== '' || this.lastname !== '' || this.username !== '') {
+        this.error = false
+        this.errorMsg = ''
+        const firebaseAuth = await firebase.auth()
+        await firebaseAuth.createUserWithEmailAndPassword(this.email, this.password)
+        // const result = await createUser
+        // const dataBase = db.collection('users').doc(result.user.uid)
+        // await dataBase.set({
+        //   firtname: this.firstname,
+        //   lastname: this.lastname,
+        //   username: this.username,
+        //   email: this.email
+        // })
+        this.$router.push({ name: 'Home' })
+      }
+      this.error = true
+      this.errorMsg = 'Please fill out all the fields!'
+    }
   }
-  // methods: {
-  //   async register() {
-  //     if (this.email !== '' || this.password !== '' || this.firstname !== '' || this.lastname !== '' || this.username !== '') {
-  //       this.error = false
-  //       this.errorMsg = ''
-  //       const firebaseAuth = awiat firebase.auth()
-  //       const createUser = awiat firebaseAuth.createUserWithEmailAndPassword(this.email, this.password)
-  //       const result = await createUser
-  //       const dataBase = db.collection('users').doc(result.user.uid)
-  //       awiat dataBase.set({
-  //         firtname: this.firstname,
-  //         lastname: this.lastname,
-  //         username: this.username,
-  //         email: this.email
-  //       })
-  //       this.$router.push({ name: 'Home' })
-  //       return
-  //     }
-  //     this.error = true
-  //     this.errorMsg = 'Please fill out all the fields!'
-  //     return
-  //   }
-  // }
 }
 </script>
 <style lang="scss" scoped>

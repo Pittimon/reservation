@@ -11,6 +11,7 @@ export default new Vuex.Store({
     seatobj: {
     },
     dialogc: false,
+    user: {},
     cinema: [
       {
         id: 1, seat: 'A1', row: 'A', col: 1, price: 240, reserved: false, sold: true
@@ -98,6 +99,9 @@ export default new Vuex.Store({
     },
     seatobj(state) {
       return state.seatobj
+    },
+    user(state) {
+      return state.user
     }
   },
   mutations: {
@@ -112,6 +116,9 @@ export default new Vuex.Store({
     },
     setSeatobj(state, value) {
       state.seatobj = value
+    },
+    setUser(state, value) {
+      state.user = value
     }
   },
   actions: {
@@ -149,6 +156,9 @@ export default new Vuex.Store({
     },
     setPropObjAction(context, value) {
       context.commit('setSeatobj', value)
+    },
+    setUserAction(context, value) {
+      context.commit('setUser', value)
     }
   },
   modules: {

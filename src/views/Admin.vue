@@ -71,6 +71,8 @@
     </v-app>
 </template>
 <script>
+import Token from '../common/getToken'
+
 export default {
   name: 'Admin',
   data() {
@@ -90,6 +92,10 @@ export default {
         }
       ]
     }
+  },
+  async mounted() {
+    const token = await Token()
+    console.log(token)
   }
 }
 </script>

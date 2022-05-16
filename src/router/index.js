@@ -10,6 +10,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/Menu',
     name: 'Menu',
     component: () => { return import('../views/Menu.vue') },
     meta: {
