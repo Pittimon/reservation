@@ -40,7 +40,7 @@ export default {
       mini: true,
       items: [
         { icon: 'mdi-home', text: 'Home', route: '/Home' },
-        { icon: 'mdi-food', text: 'Menu', route: '/' },
+        { icon: 'mdi-food', text: 'Menu', route: '/Menu' },
         { icon: 'mdi-room-service', text: 'Bell', route: '/Bell' },
         { icon: 'mdi-star', text: 'Reserve', route: '/Reserve' },
         { icon: 'mdi-music-note', text: 'Song', route: '/Song' },
