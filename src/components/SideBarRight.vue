@@ -77,57 +77,8 @@
         <v-toolbar color="rgba(0,0,0,0)" flat>
             <strong>Total</strong><v-spacer></v-spacer><strong>33$</strong>
         </v-toolbar>
-        <v-toolbar color="rgba(0,0,0,0)" flat>
-            <strong>Payment Method</strong>
-        </v-toolbar>
-        <v-item-group mandatory class="mt-n1">
-            <v-container>
-                <v-row justify="center">
-                    <v-col cols="12" md="4">
-                        <v-item v-slot="{active, toggle}">
-                            <v-card color="#f6efef" :class="active ? 'borderme' : ''" class="d-flex align-center rounded-lg"
-                            dark height="70" @click="toggle" flat>
-                            <v-row>
-                                <v-col cols="12" md="12">
-                                    <v-list-item three-line class="text-center mt-1">
-                                        <v-list-item-content>
-                                            <div>
-                                                <v-icon :color="active ? '#704232' : 'black'">mdi-credit-card</v-icon>
-                                            </div>
-                                            <v-list-item-subtitle
-                                            :class="active ? 'brown--text' : 'black--text'" class="mt-n2 caption">Card</v-list-item-subtitle>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                </v-col>
-                            </v-row>
-                            </v-card>
-                        </v-item>
-                    </v-col>
-                    <v-col cols="12" md="4">
-                        <v-item v-slot="{active, toggle}">
-                            <v-card color="#f6efef" :class="active ? 'borderme' : ''" class="d-flex align-center rounded-lg"
-                            dark height="70" @click="toggle" flat>
-                            <v-row>
-                                <v-col cols="12" md="12">
-                                    <v-list-item three-line class="text-center mt-1">
-                                        <v-list-item-content>
-                                            <div>
-                                                <v-icon :color="active ? '#704232' : 'black'">mdi-qrcode</v-icon>
-                                            </div>
-                                            <v-list-item-subtitle
-                                            :class="active ? 'brown--text' : 'black--text'" class="mt-n2 caption">E-wallet</v-list-item-subtitle>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                </v-col>
-                            </v-row>
-                            </v-card>
-                        </v-item>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-item-group>
         <v-toolbar class="mx-3 mt-2" flat>
-            <v-btn color="#704232" block dark class="widthoutupercase">Print Bills</v-btn>
+            <v-btn color="#704232" block dark class="widthoutupercase">Confirm Order</v-btn>
         </v-toolbar>
     </div>
     </v-navigation-drawer>
