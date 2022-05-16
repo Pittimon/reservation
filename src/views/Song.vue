@@ -5,9 +5,8 @@
       style="top: 50px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;" flat>
         <v-row jusify="center">
           <v-col cols="6" md="6">
-            <v-card :color="active ? '#f6efef' : 'white'"
-            :class="active ? 'borderme' : 'borderout'"
-            class="f-flex align-center rounded-lg mx-2" height="350" @click="toggle" flat>
+            <v-card
+            class="f-flex align-center rounded-lg mx-2" height="350" flat>
             <v-list-item class="text-center mt-10" active-class="border">
               <v-list-item-content three-line class="mt-5">
                     <v-icon size="300" color="#704232">mdi-music</v-icon>

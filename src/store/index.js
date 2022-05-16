@@ -12,6 +12,7 @@ export default new Vuex.Store({
     },
     dialogc: false,
     user: {},
+    menu: [],
     cinema: [
       {
         id: 1, seat: 'A1', row: 'A', col: 1, price: 240, reserved: false, sold: true
@@ -102,6 +103,9 @@ export default new Vuex.Store({
     },
     user(state) {
       return state.user
+    },
+    menu(state) {
+      return state.menu
     }
   },
   mutations: {
@@ -119,6 +123,9 @@ export default new Vuex.Store({
     },
     setUser(state, value) {
       state.user = value
+    },
+    setMenu(state, value) {
+      state.menu = value
     }
   },
   actions: {
@@ -159,6 +166,9 @@ export default new Vuex.Store({
     },
     setUserAction(context, value) {
       context.commit('setUser', value)
+    },
+    setMenuAction(context, value) {
+      context.commit('setMenu', value)
     }
   },
   modules: {

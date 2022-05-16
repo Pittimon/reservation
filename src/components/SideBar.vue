@@ -3,7 +3,7 @@
   <v-card>
     <v-navigation-drawer v-model="drawer" app color="white" mini-variant mini-variant-width="120">
       <v-list flat style="position: absolute; top: 15px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
-        <v-list-item-group v-model="selectItem">
+        <v-list-item-group>
           <v-list-item active-class="border">
             <v-list-item-content>
               <v-avatar>
@@ -15,7 +15,7 @@
         </v-list-item-group>
       </v-list>
       <v-list flat style="position: absolute; top: 160px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
-        <v-list-item-group v-model="selectItem">
+        <v-list-item-group>
           <v-list-item v-for="(item, i) in items" :key="i" active-class="border" :ripple="false" router :to="item.route">
             <v-list-item-content>
               <v-icon v-text="item.icon"></v-icon>
@@ -25,13 +25,16 @@
         </v-list-item-group>
       </v-list>
       <div style="position: absolute; bottom: 50px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
-        <v-icon>mdi-logout</v-icon><br><span class="caption">Logout</span>
+        <v-icon @click="Signout">mdi-logout</v-icon><br><span class="caption">Logout</span>
       </div>
     </v-navigation-drawer>
   </v-card>
   </div>
 </template>
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 export default {
   data() {
     return {
@@ -46,6 +49,18 @@ export default {
         { icon: 'mdi-music-note', text: 'Song', route: '/Song' },
         { icon: 'mdi-account', text: 'Admin', route: '/Admin' }
       ]
+    }
+  },
+  methods: {
+    Signout() {
+      firebase.auth().signOut().then(() => {
+        this.$router.push({ name: 'Login' })
+        console.log('signout success')
+      // Sign-out successful.
+      }).catch((error) => {
+      // An error happened.
+        console.log(error)
+      })
     }
   }
 }

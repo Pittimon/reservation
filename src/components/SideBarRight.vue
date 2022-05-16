@@ -9,11 +9,6 @@
                     <v-list-item-subtitle>Cashier</v-list-item-subtitle>
                     <v-list-item-title>MasterA</v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-action>
-                    <v-bagde borfered overlap color="red" dot>
-                        <v-icon>mdi-heart</v-icon>
-                    </v-bagde>
-                </v-list-item-action>
             </v-list-item>
         </v-list>
         <strong class="ml-3">Bills</strong>

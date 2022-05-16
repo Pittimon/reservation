@@ -17,7 +17,7 @@
             <user class="icon" />
           </div>
           <div class="input">
-            <input type="text" placeholder="Username" v-model="username" />
+            <input type="text" placeholder="Phone" v-model="phone" />
             <v-icon class="icon">mdi-account</v-icon>
             <user class="icon" />
           </div>
@@ -59,16 +59,17 @@ export default {
     return {
       fistname: null,
       lastname: null,
-      username: null,
+      phone: null,
       email: null,
       password: null,
       error: null,
-      errorMsg: null
+      errorMsg: null,
+      id: this.$store.getters.state.user
     }
   },
   methods: {
     async register() {
-      if (this.email !== '' || this.password !== '' || this.firstname !== '' || this.lastname !== '' || this.username !== '') {
+      if (this.email !== '' || this.password !== '' || this.firstname !== '' || this.lastname !== '' || this.phone !== '') {
         this.error = false
         this.errorMsg = ''
         const firebaseAuth = await firebase.auth()

@@ -45,6 +45,7 @@ export default {
       } else {
         // User is signed out
         // ...
+        this.$route.push({ name: 'Login' })
       }
     })
   },

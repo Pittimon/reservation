@@ -10,12 +10,10 @@
           <div class="input">
             <input type="text" placeholder="Email" v-model="email" />
             <v-icon class="icon">mdi-email</v-icon>
-            <email class="icon" />
           </div>
           <div class="input">
             <input type="password" placeholder="Password" v-model="password" />
             <v-icon class="icon">mdi-lock</v-icon>
-            <password class="icon" />
           </div>
         </div>
         <router-link class="forgotpassword" :to="{ name: 'ForgotPassword' }">
@@ -30,19 +28,15 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import email from '../assets/Icon/email.svg'
-import password from '../assets/Icon/password.svg'
 
 export default {
   name: 'Login',
   components: {
-    email,
-    password
   },
   data() {
     return {
-      email: null,
-      password: null,
+      email: '',
+      password: '',
       error: null
     }
   },

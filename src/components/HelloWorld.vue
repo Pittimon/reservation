@@ -59,17 +59,6 @@
                         {{ item.subtext }}
                       </p>
                     </div>
-
-                    <div class="align-self-center">
-                      <v-btn
-                        v-for="(icon, index) in icons"
-                        :key="index"
-                        :class="{ 'show-btns': hover }"
-                        :color="transparent"
-                        icon
-                      >
-                      </v-btn>
-                    </div>
                   </v-row>
                 </v-card-title>
               </v-img>

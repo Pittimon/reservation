@@ -114,13 +114,13 @@
           <v-card flat class="rounded-lg mx-5">
             <v-list-item three-line>
               <v-list-item-avatar rounded size="120" color="grey lighten-4">
-                <v-img :src="menu.src"></v-img>
+                <v-img :src="menu.thumbnail"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="text-h5 mx-5">
                   {{ menu.name }}
                 </v-list-item-title>
-                <v-list-item-subtitle class="mt-1 mx-6">{{ menu.aboutmenu }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="mt-1 mx-6">{{ menu.description }}</v-list-item-subtitle>
                 <strong class="mt-3 mx-6">
                   {{ menu.price }} bath
                 </strong>
@@ -147,6 +147,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import SideBarRight from '../components/SideBarRight.vue'
 
 export default {
@@ -154,23 +155,32 @@ export default {
   data() {
     return {
       menus: [
-        {
-          name: 'egg', price: '60', src: 'http://i.huffpost.com/gen/2149840/thumbs/o-HOW-TO-MAKE-SCRAMBLED-EGG-facebook.jpg', aboutmenu: 'eiei'
-        },
-        {
-          name: 'egg', price: '60', src: 'http://i.huffpost.com/gen/2149840/thumbs/o-HOW-TO-MAKE-SCRAMBLED-EGG-facebook.jpg', aboutmenu: 'kiki'
-        },
-        {
-          name: 'egg', price: '60', src: 'http://i.huffpost.com/gen/2149840/thumbs/o-HOW-TO-MAKE-SCRAMBLED-EGG-facebook.jpg', aboutmenu: 'kiki'
-        },
-        {
-          name: 'egg', price: '60', src: 'http://i.huffpost.com/gen/2149840/thumbs/o-HOW-TO-MAKE-SCRAMBLED-EGG-facebook.jpg', aboutmenu: 'kiki'
-        }
       ]
     }
   },
   components: {
     SideBarRight
+  },
+  created() {
+    const options = {
+      method: 'GET',
+      url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/menu'
+    }
+    axios.request(options).then((response) => {
+      this.menus = response.data
+      console.log(response.data)
+      this.$store.dispatch('setMenuAction', this.menus)
+    }).catch((error) => {
+      console.error(error)
+    })
+    // async (options) =>{
+    // try {
+    //   const req = axios.request(options)
+    //   const getMenu = await req.(response)
+    // } catch(error) {
+    //   console.log(error)
+    // }
+    // }
   }
 }
 </script>
