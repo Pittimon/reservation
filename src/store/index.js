@@ -11,6 +11,8 @@ export default new Vuex.Store({
     seatobj: {
     },
     dialogc: false,
+    dialogu: false,
+    dialogd: false,
     user: {},
     menu: [],
     cinema: [
@@ -95,6 +97,12 @@ export default new Vuex.Store({
     dialogc(state) {
       return state.dialogc
     },
+    dialogu(state) {
+      return state.dialogu
+    },
+    dialogd(state) {
+      return state.dialogd
+    },
     profile(state) {
       return state.profile
     },
@@ -117,6 +125,12 @@ export default new Vuex.Store({
     },
     setDialogc(state, value) {
       state.dialogc = value
+    },
+    setDialogu(state, value) {
+      state.dialogu = value
+    },
+    setDialogd(state, value) {
+      state.dialogd = value
     },
     setSeatobj(state, value) {
       state.seatobj = value
@@ -160,6 +174,12 @@ export default new Vuex.Store({
     },
     setDialogCancleAction(context, value) {
       context.commit('setDialogc', value)
+    },
+    setDialoguCancleAction(context, value) {
+      context.commit('setDialogu', value)
+    },
+    setDialogdCancleAction(context, value) {
+      context.commit('setDialogd', value)
     },
     setPropObjAction(context, value) {
       context.commit('setSeatobj', value)

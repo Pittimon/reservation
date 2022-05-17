@@ -11,7 +11,6 @@
                     label="Pic Menu"
                     filled
                     prepend-icon="mdi-camera"
-                    @change="onFileChange"
                     v-model="image"
                     type="file"
                     ></v-file-input>
@@ -38,7 +37,7 @@
                     ></v-text-field>
                     </v-form>
                     <div class="text-center">
-                    <v-btn @click="sentOrder" depressed dark color="#704232">confirm</v-btn>
+                    <v-btn :loading="loading" @click="createMenu" depressed dark color="#704232">confirm</v-btn>
                     </div>
                     </div>
                     </v-card>
@@ -73,8 +72,12 @@
     </v-app>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import firebase from 'firebase/app'
+import { v4 as uuidv4 } from 'uuid'
 import Token from '../common/getToken'
+import 'firebase/storage'
+import axo from '../common/mainaxios'
 
 export default {
   name: 'Admin',
@@ -98,7 +101,9 @@ export default {
       description: '',
       price: '',
       imageUrl: '',
-      image: undefined
+      image: '',
+      loading: false
+      // url: ''
     }
   },
   async mounted() {
@@ -106,29 +111,39 @@ export default {
     console.log(token)
   },
   methods: {
-    sentOrder() {
-      const options = {
-        method: 'POST',
-        url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/menu',
-        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer bearerToken' },
-        data: {
-          thumbnail: 'string', name: 'string', description: 'string', price: 0
-        }
+    async createMenu() {
+      const metadata = {
+        contentType: this.image.type
       }
-      axios.request(options).then((response) => {
-        console.log(response.data)
-      }).catch((error) => {
-        console.error(error)
-      })
-    },
-    onFileChange(file) {
-      if (file) {
-        this.imageUrl = URL.createObjectURL(file)
-        URL.revokeObjectURL(file) // free memory
+      this.loading = true
+      console.log(this.image)
+      const ref = firebase.storage().ref().child(uuidv4())
+      if (this.image) {
+        const file = await ref.put(this.image, metadata)
+        console.log(file)
+        this.imageUrl = await ref.getDownloadURL()
       } else {
         this.imageUrl = null
       }
       console.log(this.imageUrl)
+      axo.post('', {
+        thumbnail: this.imageUrl,
+        name: this.name,
+        description: this.description,
+        price: parseInt(this.price, 10)
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${await Token()}`
+        }
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.loading = false
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     }
   }
 }

@@ -117,9 +117,43 @@
                 <v-img :src="menu.thumbnail"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title class="text-h5 mx-5">
+                <v-list-item-title class="text-h6 mx-5">
                   {{ menu.name }}
+                  <v-list-item-action>
+                    <v-row>
+                  <v-btn
+                    small
+                    icon
+                    class="mr-0 ml-8"
+                    @click="updatemenu"
+                  >
+                    <v-icon>mdi-update</v-icon>
+                  </v-btn>
+                    <v-btn
+                      small
+                      icon
+                      class=""
+                      @click="deletemenu(menu.id)"
+                    >
+                      <v-icon>mdi-pencil-outline</v-icon>
+                    </v-btn>
+                    </v-row>
+                </v-list-item-action>
                 </v-list-item-title>
+                <v-dialog
+                  v-model="$store.state.dialogu"
+                  persistent
+                  max-width="600px"
+                >
+                <UpdateMenu v-show="$store.state.dialogu"/>
+                </v-dialog>
+                <v-dialog
+                  v-model="$store.state.dialogd"
+                  persistent
+                  max-width="600px"
+                >
+                  <DeleteMenu v-show="$store.state.dialogd"/>
+                </v-dialog>
                 <v-list-item-subtitle class="mt-1 mx-6">{{ menu.description }}</v-list-item-subtitle>
                 <strong class="mt-3 mx-6">
                   {{ menu.price }} bath
@@ -149,17 +183,35 @@
 <script>
 import SideBarRight from '../components/SideBarRight.vue'
 import axo from '../common/mainaxios'
+import UpdateMenu from '@/components/UpdateMenu.vue'
+import DeleteMenu from '@/components/DeleteMenu.vue'
 
 export default {
   name: 'Menu',
   data() {
     return {
       menus: [
-      ]
+      ],
+      dialogu: false,
+      dialogd: false
     }
   },
   components: {
-    SideBarRight
+    SideBarRight,
+    UpdateMenu,
+    DeleteMenu
+  },
+  methods: {
+    updatemenu() {
+      this.dialogu = true
+      this.$store.dispatch('setDialoguCancleAction', this.dialogu)
+      console.log(this.$store.state.dialogu)
+    },
+    deletemenu() {
+      this.dialogd = true
+      this.$store.dispatch('setDialogdCancleAction', this.dialogd)
+      console.log(this.$store.state.dialogd)
+    }
   },
   created() {
     axo.get().then((response) => {
