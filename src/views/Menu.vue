@@ -147,8 +147,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import SideBarRight from '../components/SideBarRight.vue'
+import axo from '../common/mainaxios'
 
 export default {
   name: 'Menu',
@@ -162,25 +162,13 @@ export default {
     SideBarRight
   },
   created() {
-    const options = {
-      method: 'GET',
-      url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/menu'
-    }
-    axios.request(options).then((response) => {
+    axo.get().then((response) => {
+      console.log(response)
       this.menus = response.data
-      console.log(response.data)
       this.$store.dispatch('setMenuAction', this.menus)
     }).catch((error) => {
       console.error(error)
     })
-    // async (options) =>{
-    // try {
-    //   const req = axios.request(options)
-    //   const getMenu = await req.(response)
-    // } catch(error) {
-    //   console.log(error)
-    // }
-    // }
   }
 }
 </script>
