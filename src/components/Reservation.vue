@@ -1,6 +1,6 @@
 <template lang="">
-    <div>
-        <v-card>
+    <div sm="12" md="6" class="mx-auto mt-6">
+        <v-card width="570px">
             <v-card-subtitle class="brown darken-2 white--text">ลูกค้าจองที่นั่ง</v-card-subtitle>
             <v-container class="white">
               <v-row  v-for="(itemrow, row) in $store.getters.cinema.filter(arr => arr.col === 1)" :key="row">

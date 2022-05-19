@@ -14,6 +14,7 @@ export default new Vuex.Store({
     dialogu: false,
     dialogd: false,
     dialogcf: false,
+    adminui: '',
     user: {},
     menu: [],
     cinema: [
@@ -118,6 +119,9 @@ export default new Vuex.Store({
     },
     menu(state) {
       return state.menu
+    },
+    adminui(state) {
+      return state.adminui
     }
   },
   mutations: {
@@ -147,6 +151,9 @@ export default new Vuex.Store({
     },
     setMenu(state, value) {
       state.menu = value
+    },
+    setAdminui(state, value) {
+      state.adminui = value
     }
   },
   actions: {
@@ -199,6 +206,9 @@ export default new Vuex.Store({
     },
     setMenuAction(context, value) {
       context.commit('setMenu', value)
+    },
+    setAdminuiAction(context, value) {
+      context.commit('setAdminui', value)
     }
   },
   modules: {

@@ -9,7 +9,7 @@
               <v-avatar>
                 <v-icon size="40">mdi-rabbit</v-icon>
               </v-avatar>
-              <v-list-item-subtitle align="center" class="mt-3 caption">MisterA</v-list-item-subtitle>
+              <v-list-item-subtitle align="center" class="mt-3 caption">{{ this.name }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -33,7 +33,9 @@
 </template>
 <script>
 import firebase from 'firebase/app'
+// import axo from '../common/mainaxios'
 import 'firebase/auth'
+// import Token from '@/common/getToken'
 
 export default {
   data() {
@@ -48,7 +50,8 @@ export default {
         { icon: 'mdi-star', text: 'Reserve', route: '/Reserve' },
         { icon: 'mdi-music-note', text: 'Song', route: '/Song' },
         { icon: 'mdi-account', text: 'Admin', route: '/Admin' }
-      ]
+      ],
+      name: ''
     }
   },
   methods: {
@@ -62,6 +65,21 @@ export default {
         console.log(error)
       })
     }
+  },
+  async created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user)
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        this.name = user.email.split('@').shift()
+        console.log(user.email)
+      } else {
+        // User is signed out
+        // ...
+        this.$router.push({ name: 'Login' })
+      }
+    })
   }
 }
 </script>

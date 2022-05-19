@@ -1,13 +1,13 @@
 <template lang="">
-    <div>
-        <v-card>
+    <div sm="12" md="6" class="mx-auto mt-4">
+        <v-card width="570px">
             <v-card-subtitle color="" class="brown darken-2 white--text">เจ้าหน้าที่ Admin ยืนยัน
             </v-card-subtitle>
             <v-container class="white">
               <v-row  v-for="(itemrow, row) in $store.state.cinema.filter(arr => arr.col === 1)" :key="row">
                 <v-col md="2" class="mx-0 pa-1 body-2" v-for="(item, id) in $store.state.cinema.filter(arr => arr.row === itemrow.row)" :key="id">
-                  <v-btn v-if="item.reserved" block v-bind="attrs"
-                    v-on="on" @click="cancelPopup(item)">
+                  <v-btn v-if="item.reserved" block
+                     @click="cancelPopup(item)">
                       <v-icon size="38" color="red">mdi-seat</v-icon>
                   </v-btn>
                   <v-btn v-else color="success" block disabled>
@@ -16,13 +16,11 @@
                 </v-col>
               </v-row>
             </v-container>
-             </template>
             <v-dialog
               :retain-focus="false"
               persistent
               v-model="$store.getters.dialogc"
               width="500">
-            <template v-slot:activator="{ on, attrs }">
               <Dialogc :seatId='$store.getters.seatobj'/>
               </v-dialog>
             <v-footer height="40" class="white">

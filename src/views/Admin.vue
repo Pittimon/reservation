@@ -9,10 +9,10 @@
                     <div class="text-center">
                     <v-file-input
                     label="Pic Menu"
+                    accept="image/*"
                     filled
                     prepend-icon="mdi-camera"
                     v-model="image"
-                    type="file"
                     ></v-file-input>
                      <v-form
                     ref="form"
