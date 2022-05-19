@@ -7,7 +7,7 @@
           <v-list-item active-class="border">
             <v-list-item-content>
               <v-avatar>
-                <v-icon size="40">mdi-account-circle</v-icon>
+                <v-icon size="40">mdi-rabbit</v-icon>
               </v-avatar>
               <v-list-item-subtitle align="center" class="mt-3 caption">MisterA</v-list-item-subtitle>
             </v-list-item-content>
