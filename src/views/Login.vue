@@ -5,7 +5,8 @@
           Don't have an account?
           <router-link class="router-link" :to="{ name: 'Register' }">Register</router-link>
         </p>
-        <h2>Login to Website</h2>
+        <h2 >Login to Website</h2>
+        <p style="margin-bottom: 20px; color: red; font-size: 12px;">{{ errormsg }}</p>
         <div class="inputs">
           <div class="input">
             <input type="text" placeholder="Email" v-model="email" />
@@ -19,7 +20,7 @@
         <router-link class="forgotpassword" :to="{ name: 'ForgotPassword' }">
           Forgot your Password?
         </router-link>
-        <v-btn rounded depressed @click.prevent="login">Sign In</v-btn>
+        <v-btn :loading="loading" rounded depressed @click.prevent="login">Sign In</v-btn>
         <div class="angle"></div>
       </form>
     <div class="background"></div>
@@ -37,24 +38,29 @@ export default {
     return {
       email: '',
       password: '',
-      error: null
+      error: null,
+      errormsg: '',
+      loading: false
     }
   },
   methods: {
     async login() {
+      this.loading = true
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then((userCredential) => {
           // Signed in
           const { user } = userCredential
           console.log(user)
           this.$router.push({ name: 'Home' })
-          // ...
+          this.loading = false
         })
         .catch((error) => {
           const errorCode = error.code
           const errorMessage = error.message
           console.log(errorCode)
           console.log(errorMessage)
+          this.errormsg = error.message
+          this.loading = false
         })
     }
   }
@@ -98,7 +104,7 @@ export default {
       text-align: center;
       font-size: 32px;
       color: #303030;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       @media (min-width: 900px) {
         font-size: 40px;
       }

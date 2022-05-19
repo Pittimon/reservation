@@ -11,8 +11,7 @@
               <v-row  v-for="(itemrow, row) in $store.state.cinema.filter(arr => arr.col === 1)" :key="row">
                 <v-col md="2" class="mx-0 pa-1 body-2" v-for="(item, id) in $store.state.cinema.filter(arr => arr.row === itemrow.row)" :key="id">
                   <p>{{item.seat}} :
-                    <span v-if="item.sold" class="grey--text">ขายแล้ว</span>
-                    <span v-else-if="item.reserved" class="primary--text">จองแล้ว</span>
+                    <span v-if="item.reserved" class="primary--text">จองแล้ว</span>
                     <span v-else class="success--text">ยังว่าง</span>
                   </p>
                 </v-col>

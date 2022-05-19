@@ -24,17 +24,23 @@
   </v-card>
 </template>
 <script>
+// import axios from 'axios'
 import axo from '../common/mainaxios'
+import Token from '@/common/getToken'
 
 export default {
   name: 'updatemenu',
+  props: {
+    uid: String
+  },
   data() {
     return {
       name: '',
       description: '',
       price: '',
       imageUrl: '',
-      image: undefined
+      image: undefined,
+      id: this.uid
     }
   },
   methods: {
@@ -42,16 +48,34 @@ export default {
       this.$store.dispatch('setDialogdCancleAction', false)
       console.log(this.$store.state.dialogd)
     },
-    deleteMenu() {
-      axo.post('', {
-        id: 'string'
-      }, {
+    async deleteMenu() {
+      console.log(this.id)
+      /*       const options = {
+        method: 'DELETE',
+        url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/menu',
+        params: { id: this.uid },
+        headers: { Authorization: `Bearer ${await Token()}` }
+      }
+
+      axios.request(options).then((response) => {
+        console.log(response.data)
+        this.$store.dispatch('setDialogdCancleAction', false)
+        this.$router.go()
+      }).catch((error) => {
+        console.error(error)
+      }) */
+      await axo.delete('', {
         headers: {
-          Authorization: 'Bearer bearerToken'
+          Authorization: `Bearer ${await Token()}`
+        },
+        params: {
+          id: this.uid
         }
       })
         .then((response) => {
           console.log(response.data)
+          this.$store.dispatch('setDialogdCancleAction', false)
+          this.$router.go()
         })
         .catch((error) => {
           console.error(error)

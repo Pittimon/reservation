@@ -112,38 +112,67 @@ export default {
   },
   methods: {
     async createMenu() {
-      const metadata = {
-        contentType: this.image.type
-      }
-      this.loading = true
-      console.log(this.image)
-      const ref = firebase.storage().ref().child(uuidv4())
       if (this.image) {
-        const file = await ref.put(this.image, metadata)
-        console.log(file)
-        this.imageUrl = await ref.getDownloadURL()
-      } else {
-        this.imageUrl = null
-      }
-      console.log(this.imageUrl)
-      axo.post('', {
-        thumbnail: this.imageUrl,
-        name: this.name,
-        description: this.description,
-        price: parseInt(this.price, 10)
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${await Token()}`
+        const metadata = {
+          contentType: this.image.type
         }
-      })
-        .then((response) => {
-          console.log(response.data)
-          this.loading = false
+        this.loading = true
+        console.log(this.image)
+        const ref = firebase.storage().ref().child(uuidv4())
+        if (this.image) {
+          const file = await ref.put(this.image, metadata)
+          console.log(file)
+          this.imageUrl = await ref.getDownloadURL()
+        } else {
+          this.imageUrl = null
+        }
+        console.log(this.imageUrl)
+        axo.post('', {
+          thumbnail: this.imageUrl,
+          name: this.name,
+          description: this.description,
+          price: parseInt(this.price, 10)
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${await Token()}`
+          }
         })
-        .catch((error) => {
-          console.error(error)
+          .then((response) => {
+            console.log(response.data)
+            this.loading = false
+            this.name = ''
+            this.description = ''
+            this.price = ''
+            this.image = ''
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+      } else {
+        axo.post('', {
+          name: this.name,
+          description: this.description,
+          price: parseInt(this.price, 10)
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${await Token()}`
+          }
         })
+          .then((response) => {
+            console.log(response.data)
+            this.loading = false
+            this.name = ''
+            this.description = ''
+            this.price = ''
+            console.log('no photo')
+          })
+          .catch((error) => {
+            console.error(error)
+            console.log('no photo')
+          })
+      }
     }
   }
 }

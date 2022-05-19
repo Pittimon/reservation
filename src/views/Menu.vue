@@ -4,7 +4,7 @@
     <v-container style="max-width: 1500px; margin-right: 900px;">
       <v-toolbar color="rgba(0,0,0,0)" flat>
         <v-spacer></v-spacer>
-        <v-text-field label="Search menu" class="mt-5" color="brown" filled append-icon="mdi-magnify"
+        <v-text-field label="Search menu" v-model="search" class="mt-5" color="brown" filled append-icon="mdi-magnify"
         dense solo flat background-color="grey lighten-4"></v-text-field>
       </v-toolbar>
       <v-toolbar color="rgba(0,0,0,0)" flat>
@@ -110,7 +110,7 @@
         <span color="grey">12 Results</span>
       </v-toolbar>
       <v-row>
-        <v-col v-for="(menu, i) in menus" :key="i" cols="12" sm="4">
+        <v-col v-for="(menu, i) in filteredList" :key="i" cols="12" sm="4">
           <v-card flat class="rounded-lg mx-5">
             <v-list-item three-line>
               <v-list-item-avatar rounded size="120" color="grey lighten-4">
@@ -119,45 +119,46 @@
               <v-list-item-content>
                 <v-list-item-title class="text-h6 mx-5">
                   {{ menu.name }}
-                  <v-list-item-action>
-                    <v-row>
-                  <v-btn
-                    small
-                    icon
-                    class="mr-0 ml-8"
-                    @click="updatemenu"
-                  >
-                    <v-icon>mdi-update</v-icon>
-                  </v-btn>
+                </v-list-item-title>
+                <v-list-item-subtitle class="mt-1 mx-6">{{ menu.description }}</v-list-item-subtitle>
+                <strong class="mt-3 mx-6">
+                  {{ menu.price }} bath
+                </strong>
+                    <v-list-item-action>
+                  <v-row>
                     <v-btn
                       small
                       icon
-                      class=""
-                      @click="deletemenu(menu.id)"
+                      class="mr-0 ml-8"
+                      @click="updatemenu"
+                      color="#704232"
                     >
                       <v-icon>mdi-pencil-outline</v-icon>
                     </v-btn>
-                    </v-row>
+                    <v-btn
+                      small
+                      icon
+                      @click="deletemenu"
+                      color="#704232"
+                    >
+                      <v-icon>mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                  </v-row>
                 </v-list-item-action>
-                </v-list-item-title>
                 <v-dialog
                   v-model="$store.state.dialogu"
                   persistent
                   max-width="600px"
                 >
-                <UpdateMenu v-show="$store.state.dialogu"/>
+                  <UpdateMenu v-show="$store.state.dialogu" :uid="menu.id"/>
                 </v-dialog>
                 <v-dialog
                   v-model="$store.state.dialogd"
                   persistent
                   max-width="600px"
                 >
-                  <DeleteMenu v-show="$store.state.dialogd"/>
+                  <DeleteMenu v-show="$store.state.dialogd" :uid="menu.id"/>
                 </v-dialog>
-                <v-list-item-subtitle class="mt-1 mx-6">{{ menu.description }}</v-list-item-subtitle>
-                <strong class="mt-3 mx-6">
-                  {{ menu.price }} bath
-                </strong>
               </v-list-item-content>
             </v-list-item>
              <v-textarea
@@ -193,7 +194,8 @@ export default {
       menus: [
       ],
       dialogu: false,
-      dialogd: false
+      dialogd: false,
+      search: ''
     }
   },
   components: {
@@ -221,6 +223,14 @@ export default {
     }).catch((error) => {
       console.error(error)
     })
+  },
+  computed: {
+    filteredList() {
+      return this.$store.state.menu.filter((menu) => {
+        return menu.name.toLowerCase()
+          .includes(this.search.toLowerCase())
+      })
+    }
   }
 }
 </script>
@@ -230,5 +240,9 @@ export default {
   }
   .v.card.borderout {
     border: 1px solid #bcaaa4 !important;
+  }
+  .v-list-item__content > * {
+    line-height: 1.1;
+    flex: 1 1 100%;
   }
 </style>
