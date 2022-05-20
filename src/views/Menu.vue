@@ -7,107 +7,9 @@
         <v-text-field label="Search menu" v-model="search" class="mt-5" color="brown" filled append-icon="mdi-magnify"
         dense solo flat background-color="grey lighten-4"></v-text-field>
       </v-toolbar>
-      <v-toolbar color="rgba(0,0,0,0)" flat>
-        <v-toolbar-title class="mt-n3">Choose Category</v-toolbar-title>
-      </v-toolbar>
-      <v-item-group class="mt-n1">
-        <v-container>
-          <v-row justify="center">
-            <v-col cols="12" md="2">
-              <v-item v-slot="{active, toggle}">
-                <v-card :color="active ? '#f6efef' : 'white'"
-                :class="active ? 'borderme' : 'borderout'"
-                class="f-flex align-center rounded-lg mx-2" dark height="140" @click="toggle" flat>
-                <v-row>
-                  <v-col cols="12" sm="12">
-                    <v-list-item three-line class="text-center">
-                      <v-list-item-content>
-                        <div align="center" justify="center">
-                          <v-icon max-height="110" max-width="110" size="85" contain color="#704232">mdi-food</v-icon>
-                        </div>
-                        <v-list-item-subtitle :class="active ? 'brown--text' : 'black--text'" class="caption mt-4">
-                          ALL
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
-                </v-row>
-                </v-card>
-              </v-item>
-            </v-col>
-            <v-col cols="12" md="2">
-              <v-item v-slot="{active, toggle}">
-                <v-card :color="active ? '#f6efef' : 'white'"
-                :class="active ? 'borderme' : 'borderout'"
-                class="f-flex align-center rounded-lg mx-2" dark height="140" @click="toggle" flat>
-                <v-row>
-                  <v-col cols="12" sm="12">
-                    <v-list-item three-line class="text-center">
-                      <v-list-item-content>
-                        <div align="center" justify="center">
-                          <v-icon max-height="110" max-width="110" size="85" contain color="#704232">mdi-coffee</v-icon>
-                        </div>
-                        <v-list-item-subtitle :class="active ? 'brown--text' : 'black--text'" class="caption mt-4">
-                          Coffee
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
-                </v-row>
-                </v-card>
-              </v-item>
-            </v-col>
-            <v-col cols="12" md="2">
-              <v-item v-slot="{active, toggle}">
-                <v-card :color="active ? '#f6efef' : 'white'"
-                :class="active ? 'borderme' : 'borderout'"
-                class="f-flex align-center rounded-lg mx-2" dark height="140" @click="toggle" flat>
-                <v-row>
-                  <v-col cols="12" sm="12">
-                    <v-list-item three-line class="text-center">
-                      <v-list-item-content>
-                        <div align="center" justify="center">
-                          <v-icon max-height="110" max-width="110" size="85" contain color="#704232">mdi-cake</v-icon>
-                        </div>
-                        <v-list-item-subtitle :class="active ? 'brown--text' : 'black--text'" class="caption mt-4">
-                          Dessert
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
-                </v-row>
-                </v-card>
-              </v-item>
-            </v-col>
-            <v-col cols="12" md="2">
-              <v-item v-slot="{active, toggle}">
-                <v-card :color="active ? '#f6efef' : 'white'"
-                :class="active ? 'borderme' : 'borderout'"
-                class="f-flex align-center rounded-lg mx-2" dark height="140" @click="toggle" flat>
-                <v-row>
-                  <v-col cols="12" sm="12">
-                    <v-list-item three-line class="text-center">
-                      <v-list-item-content>
-                        <div align="center" justify="center">
-                          <v-icon max-height="110" max-width="110" size="85" contain color="#704232">mdi-pizza</v-icon>
-                          <!-- <v-img src="c1.png" max-height="110" max-width="110" contain></v-img> -->
-                        </div>
-                        <v-list-item-subtitle :class="active ? 'brown--text' : 'black--text'" class="caption mt-4">
-                          Food
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
-                </v-row>
-                </v-card>
-              </v-item>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-item-group>
       <v-toolbar color="#eeeeee" flat>
         <v-toolbar-title>All Menu</v-toolbar-title><v-spacer></v-spacer>
-        <span color="grey">12 Results</span>
+        <span color="grey">{{ filteredList.length }} menu</span>
       </v-toolbar>
       <v-row>
         <v-col v-for="(menu, i) in filteredList" :key="i" cols="12" sm="4">
@@ -184,12 +86,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import SideBarRight from '../components/SideBarRight.vue'
 import axo from '../common/mainaxios'
 import UpdateMenu from '@/components/UpdateMenu.vue'
 import DeleteMenu from '@/components/DeleteMenu.vue'
-import Token from '@/common/getToken'
+// import Token from '@/common/getToken'
 
 export default {
   name: 'Menu',
@@ -218,27 +120,6 @@ export default {
       this.dialogd = true
       this.$store.dispatch('setDialogdCancleAction', this.dialogd)
       console.log(this.$store.state.dialogd)
-    },
-    async addtocart(menu) {
-      /*    const options = {
-        method: 'POST',
-        url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order',
-        headers: {'Content-Type': 'application/json', Authorization: 'Bearer bearerToken'},
-        data: {menu_list: ['string']}
-      }; */
-
-      axios.post('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
-        menu_list: [menu]
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${await Token()}`
-        }
-      }).then((response) => {
-        console.log(response.data)
-      }).catch((error) => {
-        console.error(error)
-      })
     }
   },
   created() {

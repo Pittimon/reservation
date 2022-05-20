@@ -56,13 +56,15 @@
       <strong>Total</strong><v-spacer></v-spacer><strong>33฿</strong>
     </v-toolbar>
     <v-toolbar class="mx-3 mt-2" flat>
-      <v-btn color="#704232" block dark class="widthoutupercase">Confirm Order</v-btn>
+      <v-btn color="#704232" block @click="addtocart" dark class="widthoutupercase">Confirm Order</v-btn>
     </v-toolbar>
   </div>
   </v-navigation-drawer>
 </template>
 <script>
+import axios from 'axios'
 import axo from '../common/mainaxios'
+import Token from '@/common/getToken'
 
 export default {
   name: 'Order',
@@ -92,6 +94,27 @@ export default {
       } else if (this.num === 1) {
         // popup
       }
+    },
+    async addtocart(menu) {
+      /*    const options = {
+        method: 'POST',
+        url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order',
+        headers: {'Content-Type': 'application/json', Authorization: 'Bearer bearerToken'},
+        data: {menu_list: ['string']}
+      }; */
+
+      axios.post('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
+        menu_list: [menu]
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${await Token()}`
+        }
+      }).then((response) => {
+        console.log(response.data)
+      }).catch((error) => {
+        console.error(error)
+      })
     }
   }
 }

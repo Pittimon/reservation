@@ -1,7 +1,7 @@
 <template lang="">
     <v-app :style="{background: $vuetify.theme.themes.dark.background}">
         <v-container>
-            <v-card class="align-center rounded-lg mx-2" height="1500px" width="1500px"
+            <v-card class="align-center rounded-lg mx-auto" height="1500px" width="1700px"
             style=" margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;" flat>
             <v-row jusify="center" cols="12" sm="6">
                 <v-col flat class="rounded-lg mx-5">
