@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import url("https://fonts.google.com/specimen/Quicksand");
 
 * {

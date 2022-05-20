@@ -1,7 +1,7 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes.dark.background}">
     <SideBarRight/>
-    <v-container style="max-width: 1500px; margin-right: 900px;">
+    <v-container style="max-width: 1100px; position:absolute; right:290px;">
       <v-toolbar color="rgba(0,0,0,0)" flat>
         <v-spacer></v-spacer>
         <v-text-field label="Search menu" v-model="search" class="mt-5" color="brown" filled append-icon="mdi-magnify"
