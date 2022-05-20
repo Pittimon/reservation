@@ -1,5 +1,5 @@
 <template lang="">
-    <div sm="12" md="6" class="mx-auto mt-4">
+    <div sm="12" md="6" class="mx-auto mt-6">
         <v-card width="570px">
             <v-card-subtitle color="" class="brown darken-2 white--text">เจ้าหน้าที่ Admin ยืนยัน
             </v-card-subtitle>
@@ -30,6 +30,7 @@
     </div>
 </template>
 <script>
+// import firebase from 'firebase/app'
 import Dialogc from './Dialogc.vue'
 
 export default {

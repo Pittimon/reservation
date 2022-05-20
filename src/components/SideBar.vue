@@ -16,7 +16,7 @@
       </v-list>
       <v-list flat style="position: absolute; top: 160px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
         <v-list-item-group>
-          <v-list-item v-for="(item, i) in items" :key="i" active-class="border" :ripple="false" router :to="item.route">
+          <v-list-item v-for="(item, i) in checkadmin" :key="i" active-class="border" :ripple="false" router :to="item.route">
             <v-list-item-content>
               <v-icon v-text="item.icon"></v-icon>
               <v-list-item-subtitle align="center" v-text="item.text" class="mt-3 caption"></v-list-item-subtitle>
@@ -44,42 +44,79 @@ export default {
       drawer: true,
       mini: true,
       items: [
-        { icon: 'mdi-home', text: 'Home', route: '/Home' },
-        { icon: 'mdi-food', text: 'Menu', route: '/Menu' },
-        { icon: 'mdi-room-service', text: 'Bell', route: '/Bell' },
-        { icon: 'mdi-star', text: 'Reserve', route: '/Reserve' },
-        { icon: 'mdi-music-note', text: 'Song', route: '/Song' },
-        { icon: 'mdi-account', text: 'Admin', route: '/Admin' }
+        {
+          icon: 'mdi-home',
+          text: 'Home',
+          route: '/Home'
+        },
+        {
+          icon: 'mdi-food',
+          text: 'Menu',
+          route: '/Menu'
+        },
+        {
+          icon: 'mdi-room-service',
+          text: 'Bell',
+          route: '/Bell'
+        },
+        {
+          icon: 'mdi-star',
+          text: 'Reserve',
+          route: '/Reserve'
+        },
+        {
+          icon: 'mdi-music-note',
+          text: 'Song',
+          route: '/Song'
+        },
+        {
+          icon: 'mdi-account',
+          text: 'Admin',
+          route: '/Admin'
+        }
       ],
       name: ''
     }
   },
   methods: {
     Signout() {
-      firebase.auth().signOut().then(() => {
-        this.$router.push({ name: 'Login' })
-        console.log('signout success')
-      // Sign-out successful.
-      }).catch((error) => {
-      // An error happened.
-        console.log(error)
-      })
+      firebase.auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: 'Login' })
+          console.log('signout success')
+          // Sign-out successful.
+        })
+        .catch((error) => {
+          // An error happened.
+          console.log(error)
+        })
     }
   },
   async created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user)
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        this.name = user.email.split('@').shift()
-        console.log(user.email)
-      } else {
-        // User is signed out
-        // ...
-        this.$router.push({ name: 'Login' })
+    firebase.auth()
+      .onAuthStateChanged((user) => {
+        if (user) {
+          console.log(user)
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          this.name = user.email.split('@')
+            .shift()
+          console.log(user.email)
+        } else {
+          // User is signed out
+          // ...
+          this.$router.push({ name: 'Login' })
+        }
+      })
+  },
+  computed: {
+    checkadmin() {
+      if (this.$store.state.adminui) {
+        return this.items
       }
-    })
+      return this.items.filter((e) => { return e.text !== 'Admin' })
+    }
   }
 }
 </script>

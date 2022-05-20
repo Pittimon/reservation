@@ -72,7 +72,7 @@
     </v-app>
 </template>
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 import firebase from 'firebase/app'
 import { v4 as uuidv4 } from 'uuid'
 import Token from '../common/getToken'
@@ -84,18 +84,6 @@ export default {
   data() {
     return {
       menus: [
-        {
-          order: 'khhjkhjh', price: '60', note: 'eiei'
-        },
-        {
-          order: 'egg', price: '60', note: 'kiki'
-        },
-        {
-          order: 'egg', price: '60', note: 'kiki'
-        },
-        {
-          order: 'egg', price: '60', note: 'kiki'
-        }
       ],
       name: '',
       description: '',
@@ -109,6 +97,25 @@ export default {
   async mounted() {
     const token = await Token()
     console.log(token)
+  },
+  async created() {
+    /* const options = {
+      method: 'GET',
+      url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order',
+      headers: {Authorization: 'Bearer bearerToken'}
+    }; */
+
+    axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
+      headers: {
+        Authorization: `Bearer ${await Token()}`
+      }
+    }).then((response) => {
+      this.menus = response.data
+      this.getnameMenu(response.data.menu_list)
+      console.log(this.menus)
+    }).catch((error) => {
+      console.error(error)
+    })
   },
   methods: {
     async createMenu() {
@@ -174,6 +181,19 @@ export default {
           })
       }
     }
+  },
+  async getnameMenu() {
+    axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order/menu'`${this.menus.menu_list}`, {
+      headers: {
+        Authorization: `Bearer ${await Token()}`
+      }
+    })
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 }
 </script>

@@ -132,6 +132,7 @@
                       class="mr-0 ml-8"
                       @click="updatemenu"
                       color="#704232"
+                      v-if="$store.state.adminui"
                     >
                       <v-icon>mdi-pencil-outline</v-icon>
                     </v-btn>
@@ -140,6 +141,7 @@
                       icon
                       @click="deletemenu"
                       color="#704232"
+                      v-if="$store.state.adminui"
                     >
                       <v-icon>mdi-trash-can-outline</v-icon>
                     </v-btn>
@@ -172,7 +174,7 @@
               color="#704232"
               ></v-textarea>
             <v-card-actions class="px-4">
-              <v-btn color="#704232" block dark class="withoutupercase mb-2">Add to cart</v-btn>
+              <v-btn color="#704232" @click="addtocart(menu.id)" block dark class="withoutupercase mb-2">Add to cart</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -182,10 +184,12 @@
 </template>
 
 <script>
+import axios from 'axios'
 import SideBarRight from '../components/SideBarRight.vue'
 import axo from '../common/mainaxios'
 import UpdateMenu from '@/components/UpdateMenu.vue'
 import DeleteMenu from '@/components/DeleteMenu.vue'
+import Token from '@/common/getToken'
 
 export default {
   name: 'Menu',
@@ -195,7 +199,8 @@ export default {
       ],
       dialogu: false,
       dialogd: false,
-      search: ''
+      search: '',
+      orders: []
     }
   },
   components: {
@@ -213,6 +218,27 @@ export default {
       this.dialogd = true
       this.$store.dispatch('setDialogdCancleAction', this.dialogd)
       console.log(this.$store.state.dialogd)
+    },
+    async addtocart(menu) {
+      /*    const options = {
+        method: 'POST',
+        url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order',
+        headers: {'Content-Type': 'application/json', Authorization: 'Bearer bearerToken'},
+        data: {menu_list: ['string']}
+      }; */
+
+      axios.post('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
+        menu_list: [menu]
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${await Token()}`
+        }
+      }).then((response) => {
+        console.log(response.data)
+      }).catch((error) => {
+        console.error(error)
+      })
     }
   },
   created() {
