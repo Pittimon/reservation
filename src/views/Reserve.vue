@@ -24,12 +24,10 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col sm="12" md="6">
-          <Administrator/>
-        </v-col>
-        <v-col sm="12" md="6">
+          <Administrator v-show="this.$store.state.adminui"/>
+        </v-row>
+      <v-row>
           <Reservation/>
-        </v-col>
       </v-row>
     </v-container>
   </v-card>

@@ -32,6 +32,25 @@ export default {
   },
   created() {
     this.checkRoute()
+    /* firebase.auth().currentUser.getIdTokenResult()
+      .then((idTokenResult) => {
+        console.log(idTokenResult)
+        // Confirm the user is an Admin.
+        if (idTokenResult.claims.admin) {
+          // Show admin UI.
+          console.log('eiei')
+          console.log(idTokenResult.claims.admin)
+          this.$store.dispatch('setAdminuiAction', true)
+          console.log(this.$store.state.adminui)
+        } else {
+          // Show regular user UI.
+          this.$store.dispatch('setAdminuiAction', false)
+          console.log(this.$store.state.adminui)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      }) */
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -39,7 +58,6 @@ export default {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const { uid } = user
-        console.log(uid)
         this.$store.dispatch('setUserAction', uid)
         // ...
       } else {
