@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer app color="white" right width="290">
-    <v-list subheader two-line class="mt-1">
+    <div id="header" style="position:absolute; top:0px; left:0px; height:50px; right:0px; overflow:hidden;">
+    <v-list subheader two-line class="fix">
       <v-list-item>
         <v-list-item-avatar rounded>
           <v-icon color="#704232" size="40">mdi-rabbit</v-icon>
@@ -11,8 +12,9 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <div height="20">
-    <v-row v-for="(menu, i) in menus" :key="i" sm="4">
+    </div>
+    <div id="content" style="position:absolute; top:80px; bottom:240px; left:0px; right:0px; overflow-x: hidden;" class="element">
+    <v-row v-for="(menu, i) in menus" :key="i" sm="4" active-class="border">
     <v-col cols="8">
       <v-card flat class="rounded-lg mx-0">
         <v-list-item three-line>
@@ -40,66 +42,18 @@
     </v-col>
     </v-row>
     </div>
-        <!-- <strong class="ml-3">Bills</strong>
-        <v-list subheader two-line class="mt-1">
-            <v-list-item>
-                <v-list-item-avatar rounded color="grey lighten-4">
-                    <v-img src="2.png"></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title class="subtitle-2">Caramel Frappuccino</v-list-item-title>
-                    <v-list-item-subtitle>x1
-                        <v-btn plain color="#704232" small>Notes
-                            <v-icon right>mdi-pencil</v-icon>
-                        </v-btn>
-                    </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action class="caption">10$</v-list-item-action>
-            </v-list-item>
-        </v-list>
-        <v-list subheader two-line class="mt-1">
-            <v-list-item>
-                <v-list-item-avatar rounded color="grey lighten-4">
-                    <v-img src="3.png"></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title class="subtitle-2">Chocolate Frappuccino</v-list-item-title>
-                    <v-list-item-subtitle>x1
-                        <v-btn plain color="#704232" small>Notes
-                            <v-icon right>mdi-pencil</v-icon>
-                        </v-btn>
-                    </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action class="caption">10$</v-list-item-action>
-            </v-list-item>
-        </v-list>
-        <v-list subheader two-line class="mt-1">
-            <v-list-item>
-                <v-list-item-avatar rounded color="grey lighten-4">
-                    <v-img src="3.png"></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title class="subtitle-2">Late Frappuccino</v-list-item-title>
-                    <v-list-item-subtitle>x1
-                        <v-btn plain color="#704232" small>Notes
-                            <v-icon right>mdi-pencil</v-icon>
-                        </v-btn>
-                    </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action class="caption">10$</v-list-item-action>
-            </v-list-item>
-        </v-list> -->
-  <div style="position: absolute; bottom: 20px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;">
+  <div id="footer" style="position:absolute; bottom:20px; height:220px; left:0px; right:0px; overflow:hidden;">
+    <!-- <div style="position: absolute; bottom: 20px; margin-left: auto; margin-right: auto; left:0; right:0; text-align: center;"> -->
     <v-divider class="mx-4"></v-divider>
     <v-toolbar color="rgba(0,0,0,0)" flat>
-        <strong>Subtotal</strong><v-spacer></v-spacer><strong>30$</strong>
+        <strong>Subtotal</strong><v-spacer></v-spacer><strong>30฿</strong>
     </v-toolbar>
     <v-toolbar color="rgba(0,0,0,0)" flat class="mt-n8">
-      <span>Tax(10%)</span><v-spacer></v-spacer><span>3$</span>
+      <span>Tax(10%)</span><v-spacer></v-spacer><span>3฿</span>
     </v-toolbar>
     <v-divider class="mx-4"></v-divider>
     <v-toolbar color="rgba(0,0,0,0)" flat>
-      <strong>Total</strong><v-spacer></v-spacer><strong>33$</strong>
+      <strong>Total</strong><v-spacer></v-spacer><strong>33฿</strong>
     </v-toolbar>
     <v-toolbar class="mx-3 mt-2" flat>
       <v-btn color="#704232" block dark class="widthoutupercase">Confirm Order</v-btn>
@@ -133,20 +87,57 @@ export default {
       this.num += 1
     },
     delNum() {
-      this.num -= 1
+      if (this.num >= 2) {
+        this.num -= 1
+      } else if (this.num === 1) {
+        // popup
+      }
     }
   }
 }
 </script>
 
-<style>
-    .v-card.borderme{
-        border: 2px solid #704232 !important;
-    }
-    .col-12 {
-        padding: 5px !important;
-    }
-    .v-btn.widthoutupercase{
-        text-transform: none !important;
-    }
+<style scoped>
+.v-card.borderme{
+  border: 2px solid #704232 !important;
+}
+
+.col-12 {
+  padding: 5px !important;
+}
+
+.v-btn.widthoutupercase{
+  text-transform: none !important;
+}
+
+.fix {
+  width: 100%;
+  z-index: 9999 !important;
+  position: fixed;
+}
+
+.element {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+
+.element::-webkit-scrollbar {
+    display: none;
+}
+
+.border {
+  margin-left: 8px;
+  margin-right: 8px;
+  background: #704232 !important;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #704232;
+}
+.v-list-item-content .v-list-item--active {
+  color: white !important;
+}
+.theme--light.v-list-item--active .v-list-item__subtitle, .theme--light.v-list-item .v-list__action-text {
+  color: white !important;
+}
 </style>

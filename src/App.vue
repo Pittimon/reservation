@@ -32,6 +32,25 @@ export default {
   },
   created() {
     this.checkRoute()
+    /* firebase.auth().currentUser.getIdTokenResult()
+      .then((idTokenResult) => {
+        console.log(idTokenResult)
+        // Confirm the user is an Admin.
+        if (idTokenResult.claims.admin) {
+          // Show admin UI.
+          console.log('eiei')
+          console.log(idTokenResult.claims.admin)
+          this.$store.dispatch('setAdminuiAction', true)
+          console.log(this.$store.state.adminui)
+        } else {
+          // Show regular user UI.
+          this.$store.dispatch('setAdminuiAction', false)
+          console.log(this.$store.state.adminui)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      }) */
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -75,7 +94,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import url("https://fonts.google.com/specimen/Quicksand");
 
 * {
