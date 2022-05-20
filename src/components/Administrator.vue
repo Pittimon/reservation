@@ -30,7 +30,6 @@
     </div>
 </template>
 <script>
-// import firebase from 'firebase/app'
 import Dialogc from './Dialogc.vue'
 
 export default {

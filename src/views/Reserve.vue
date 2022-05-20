@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import firebase from 'firebase/app'
-import 'firebase/firestore'
 import Administrator from '../components/Administrator.vue'
 import Reservation from '../components/Reservation.vue'
 
@@ -47,7 +45,7 @@ export default {
   components: {
     Administrator,
     Reservation
-  },
+  }/* ,
   async created() {
     const snapshot = await firebase.firestore().collection('reserve').get()
     const cinema = snapshot.docs.map((doc) => {
@@ -55,6 +53,6 @@ export default {
     })
     this.$store.dispatch('setCinemaAction', cinema)
     console.log(this.$store.state.cinema)
-  }
+  } */
 }
 </script>
