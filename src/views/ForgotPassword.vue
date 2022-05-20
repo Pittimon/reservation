@@ -9,7 +9,7 @@
         <div class="inputs">
           <div class="input">
             <input type="text" placeholder="Email" v-model="email" />
-            <v-icon class="icon">mdi-email</v-icon>
+            <v-icon class="icon" style="left:10px;">mdi-email</v-icon>
             <email class="icon" />
           </div>
         </div>

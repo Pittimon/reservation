@@ -33,9 +33,7 @@
 </template>
 <script>
 import firebase from 'firebase/app'
-// import axo from '../common/mainaxios'
 import 'firebase/auth'
-// import Token from '@/common/getToken'
 
 export default {
   data() {

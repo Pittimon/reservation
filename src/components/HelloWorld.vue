@@ -16,8 +16,10 @@
     >
         <v-card-title
         class="black--text text-h1 font-weight-black text--darken-4 justify-center">
-            <hr noshade="noshade" width="700" size="8" style="text-align: left;">
-            MENU <hr noshade="noshade" width="700" size="8"  align="left"></v-card-title>
+          <v-divider class="black"></v-divider> MENU <v-divider class="black"></v-divider>
+            <!-- <hr noshade="noshade" width="700" size="8" style="text-align: left;">
+            <hr noshade="noshade" width="700" size="8"  align="left"> -->
+        </v-card-title>
     </v-card>
 </v-container>
   <v-container class="pa-4 text-center">

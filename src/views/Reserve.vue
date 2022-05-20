@@ -36,8 +36,6 @@
 </template>
 
 <script>
-// import firebase from 'firebase/app'
-import 'firebase/firestore'
 import Administrator from '../components/Administrator.vue'
 import Reservation from '../components/Reservation.vue'
 

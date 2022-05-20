@@ -7,14 +7,33 @@
         </p>
         <h2 >Login to Website</h2>
         <p style="margin-bottom: 20px; color: red; font-size: 12px;">{{ errormsg }}</p>
+        <!-- <v-text-field
+          solo
+          label="Email"
+          v-model="email"
+          prepend-inner-icon="mdi-email"
+          clearable
+          clear-icon="mdi-close-circle"
+          @click:clear="clearMessage"
+          required></v-text-field>
+        <v-text-field
+          solo
+          label="Password"
+          v-model="password"
+          prepend-inner-icon="mdi-lock"
+          type="password"
+          clearable
+          clear-icon="mdi-close-circle"
+          @click:clear="clearMessage"
+          required></v-text-field> -->
         <div class="inputs">
           <div class="input">
             <input type="text" placeholder="Email" v-model="email" />
-            <v-icon class="icon">mdi-email</v-icon>
+            <v-icon class="icon" style="left:10px;">mdi-email</v-icon>
           </div>
           <div class="input">
             <input type="password" placeholder="Password" v-model="password" />
-            <v-icon class="icon">mdi-lock</v-icon>
+            <v-icon class="icon" style="left:10px;">mdi-lock</v-icon>
           </div>
         </div>
         <router-link class="forgotpassword" :to="{ name: 'ForgotPassword' }">
