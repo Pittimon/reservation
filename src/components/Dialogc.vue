@@ -28,6 +28,8 @@
 </template>
 <script>
 
+import firebase from 'firebase'
+
 export default {
   data() {
     return {
@@ -41,12 +43,24 @@ export default {
     //   console.log(id)
     //   this.loading = true
     //   this.$store.dispatch('setDialogCancleAction', !this.dialog2)
-    cancelSoldSeat(seat) {
-      console.log(seat)
-      this.$store.dispatch('cancleSoldSeatAction', seat)
-      this.$store.dispatch('cancelReserveSeatAction', seat)
-      const d = !this.dialog2
-      this.$store.dispatch('setDialogCancleAction', d)
+    async cancelSoldSeat(seatre) {
+      console.log(seatre)
+      const snapshot = firebase.firestore().collection('reserve')
+      const getsnapshot = await snapshot.get()
+      const showdata = getsnapshot.docs.map((doc) => {
+        return doc
+      })
+      console.log(showdata)
+      const cinema = showdata.filter((obj) => {
+        return obj.data().seat === seatre.seat
+      })
+      console.log(cinema[0].id)
+      await snapshot.doc(cinema[0].id).update({
+        reserved: false,
+        user: ''
+      })
+      this.$store.dispatch('setDialogCancleAction', false)
+      this.$router.go()
     },
     fnDialog() {
       const d = !this.dialog2

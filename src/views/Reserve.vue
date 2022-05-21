@@ -8,10 +8,11 @@
           <v-card width="570px">
             <v-card-subtitle class="brown darken-2 white--text">สถานะการจอง</v-card-subtitle>
             <v-container class="white">
-              <v-row  v-for="(itemrow, row) in $store.state.cinema.filter(arr => arr.col === 1)" :key="row">
-                <v-col md="2" class="mx-0 pa-1 body-2" v-for="(item, id) in $store.state.cinema.filter(arr => arr.row === itemrow.row)" :key="id">
+              <v-row  v-for="(item, row) in $store.state.cinema.filter(arr => arr.col === 1)" :key="row">
+                <v-col md="2" class="mx-0 pa-1 body-2" v-for="(item, id) in $store.state.cinema.filter(arr => arr.row === item.row)" :key="id">
                   <p>{{ item.seat }} :
-                    <span v-if="item.reserved" class="primary--text">จองแล้ว</span>
+                    <span v-if="item.reserved && !$store.state.adminui" class="primary--text">จองแล้ว</span>
+                    <span @click="showinfo(item)" v-if="item.reserved && $store.state.adminui" class="primary--text">จองแล้ว</span>
                     <span v-else class="success--text">ยังว่าง</span>
                   </p>
                 </v-col>
@@ -36,6 +37,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import Administrator from '../components/Administrator.vue'
 import Reservation from '../components/Reservation.vue'
 
@@ -45,14 +48,22 @@ export default {
   components: {
     Administrator,
     Reservation
-  }/* ,
+  },
+  methods: {
+    showinfo(item) {
+      console.log(item)
+    }
+  },
   async created() {
-    const snapshot = await firebase.firestore().collection('reserve').get()
+    const snapshot = await firebase.firestore().collection('reserve').orderBy('id', 'asc').get()
     const cinema = snapshot.docs.map((doc) => {
       return doc.data()
     })
-    this.$store.dispatch('setCinemaAction', cinema)
+    const sortcinema = cinema.sort((a, b) => {
+      return a.id - b.id
+    })
+    this.$store.dispatch('setCinemaAction', sortcinema)
     console.log(this.$store.state.cinema)
-  } */
+  }
 }
 </script>

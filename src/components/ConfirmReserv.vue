@@ -27,6 +27,8 @@
                  </v-card>
 </template>
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 
 export default {
   data() {
@@ -41,10 +43,24 @@ export default {
     //   console.log(id)
     //   this.loading = true
     //   this.$store.dispatch('setDialogCancleAction', !this.dialog2)
-    reserveSeat(seat) {
-      console.log(seat)
-      this.$store.dispatch('reserveSeatAction', seat)
+    async reserveSeat(seatre) {
+      console.log(seatre)
+      const snapshot = firebase.firestore().collection('reserve')
+      const getsnapshot = await snapshot.get()
+      const showdata = getsnapshot.docs.map((doc) => {
+        return doc
+      })
+      console.log(showdata)
+      const cinema = showdata.filter((obj) => {
+        return obj.data().seat === seatre.seat
+      })
+      console.log(cinema[0].id)
+      await snapshot.doc(cinema[0].id).update({
+        reserved: true,
+        user: this.$store.state.user
+      })
       this.$store.dispatch('setDialogConfirmAction', false)
+      this.$router.go()
     },
     fnDialog() {
       this.$store.dispatch('setDialogConfirmAction', false)
