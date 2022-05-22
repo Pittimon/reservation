@@ -14,7 +14,7 @@
     </v-list>
     </div>
     <div id="content" style="position:absolute; top:80px; bottom:240px; left:0px; right:0px; overflow-x: hidden;" class="element">
-    <v-row v-for="(menu, i) in menus" :key="i" sm="4" active-class="border">
+    <v-row v-for="(menu, i) in $store.getters.addtocart" :key="i" sm="4" active-class="border">
     <v-col cols="8">
       <v-card flat class="rounded-lg mx-0">
         <v-list-item three-line>
@@ -28,7 +28,6 @@
               </strong> -->
             <v-card-actions class="mx-1">
               <v-btn color="#704232" dark class="mx-4" @click="delNum" x-small fab elevation="0">-</v-btn>
-                {{ num }}
               <v-btn color="#704232" dark class="withoutupercase mx-4" @click="addNum" x-small fab elevation="0">+</v-btn>
             </v-card-actions>
           </v-list-item-content>

@@ -32,7 +32,7 @@
                       small
                       icon
                       class="mr-0 ml-8"
-                      @click="updatemenu"
+                      @click="updatemenu(menu.id)"
                       color="#704232"
                       v-if="$store.state.adminui"
                     >
@@ -41,7 +41,7 @@
                     <v-btn
                       small
                       icon
-                      @click="deletemenu"
+                      @click="deletemenu(menu.id)"
                       color="#704232"
                       v-if="$store.state.adminui"
                     >
@@ -49,20 +49,6 @@
                     </v-btn>
                   </v-row>
                 </v-list-item-action>
-                <v-dialog
-                  v-model="$store.state.dialogu"
-                  persistent
-                  max-width="600px"
-                >
-                  <UpdateMenu v-show="$store.state.dialogu" :uid="menu.id"/>
-                </v-dialog>
-                <v-dialog
-                  v-model="$store.state.dialogd"
-                  persistent
-                  max-width="600px"
-                >
-                  <DeleteMenu v-show="$store.state.dialogd" :uid="menu.id"/>
-                </v-dialog>
               </v-list-item-content>
             </v-list-item>
              <v-textarea
@@ -76,10 +62,24 @@
               color="#704232"
               ></v-textarea>
             <v-card-actions class="px-4">
-              <v-btn color="#704232" block dark class="withoutupercase mb-2">Add to cart</v-btn>
+              <v-btn color="#704232" @click="addtocart(menu)" block dark class="withoutupercase mb-2">Add to cart</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
+        <v-dialog
+          v-model="$store.state.dialogu"
+          persistent
+          max-width="600px"
+        >
+          <UpdateMenu v-show="$store.state.dialogu" :uid="$store.getters.idupdatemenu"/>
+        </v-dialog>
+        <v-dialog
+          v-model="$store.state.dialogd"
+          persistent
+          max-width="600px"
+        >
+          <DeleteMenu v-show="$store.state.dialogd" :uid="$store.getters.iddeletemenu"/>
+        </v-dialog>
       </v-row>
     </v-container>
   </v-app>
@@ -111,16 +111,23 @@ export default {
     DeleteMenu
   },
   methods: {
-    updatemenu() {
-      this.dialogu = true
-      this.$store.dispatch('setDialoguCancleAction', this.dialogu)
+    updatemenu(menu) {
+      this.$store.dispatch('setIdupdatemenuAction', menu)
+      this.$store.dispatch('setDialoguCancleAction', true)
       console.log(this.$store.state.dialogu)
     },
-    deletemenu() {
-      this.dialogd = true
-      this.$store.dispatch('setDialogdCancleAction', this.dialogd)
+    deletemenu(menu) {
+      this.$store.dispatch('setIddeletemenuAction', menu)
+      this.$store.dispatch('setDialogdCancleAction', true)
       console.log(this.$store.state.dialogd)
-      console.log()
+      console.log(menu)
+    },
+    addtocart(menu) {
+      this.$store.dispatch('AddtocartAction', menu)
+      this.$store.dispatch('SentorderAction', menu.id)
+      console.log(this.$store.state.cart)
+      console.log(this.$store.state.sentorder)
+      console.log(menu)
     }
   },
   created() {

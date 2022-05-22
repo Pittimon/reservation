@@ -16,7 +16,7 @@
       <v-btn
         color="#704232"
         text
-        @click="deleteMenu"
+        @click="deleteMenu(uid)"
       >
         Sure
       </v-btn>
@@ -24,8 +24,8 @@
   </v-card>
 </template>
 <script>
-// import axios from 'axios'
-import axo from '../common/mainaxios'
+import axios from 'axios'
+// import axo from '../common/mainaxios'
 import Token from '@/common/getToken'
 
 export default {
@@ -39,8 +39,7 @@ export default {
       description: '',
       price: '',
       imageUrl: '',
-      image: undefined,
-      id: this.uid
+      image: undefined
     }
   },
   methods: {
@@ -48,12 +47,12 @@ export default {
       this.$store.dispatch('setDialogdCancleAction', false)
       console.log(this.$store.state.dialogd)
     },
-    async deleteMenu() {
-      console.log(this.id)
-      /*       const options = {
+    async deleteMenu(idmenu) {
+      console.log(idmenu)
+      const options = {
         method: 'DELETE',
         url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/menu',
-        params: { id: this.uid },
+        params: { id: idmenu },
         headers: { Authorization: `Bearer ${await Token()}` }
       }
 
@@ -63,8 +62,8 @@ export default {
         this.$router.go()
       }).catch((error) => {
         console.error(error)
-      }) */
-      await axo.delete('', {
+      })
+      /* await axo.delete('', {
         headers: {
           Authorization: `Bearer ${await Token()}`
         },
@@ -79,7 +78,7 @@ export default {
         })
         .catch((error) => {
           console.error(error)
-        })
+        }) */
     }
   }
 }

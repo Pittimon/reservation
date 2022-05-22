@@ -14,16 +14,23 @@ export default new Vuex.Store({
     dialogu: false,
     dialogd: false,
     dialogcf: false,
+    dialogs: false,
     adminui: '',
+    iduser: {},
     user: {},
     menu: [],
     cinema: [
     ],
-    orders: []
+    cart: [],
+    iddeletemenu: '',
+    idupdatemenu: ''
   },
   getters: {
     cinema(state) {
       return state.cinema
+    },
+    iduser(state) {
+      return state.iduser
     },
     dialogc(state) {
       return state.dialogc
@@ -36,6 +43,9 @@ export default new Vuex.Store({
     },
     dialogd(state) {
       return state.dialogd
+    },
+    dialogs(state) {
+      return state.dialogs
     },
     profile(state) {
       return state.profile
@@ -52,13 +62,22 @@ export default new Vuex.Store({
     adminui(state) {
       return state.adminui
     },
-    orders(state) {
-      return state.orders
+    addtocart(state) {
+      return state.cart
+    },
+    iddeletemenu(state) {
+      return state.iddeletemenu
+    },
+    idupdatemenu(state) {
+      return state.idupdatemenu
     }
   },
   mutations: {
     setReserveSeat(state, value) {
       state.cinema = value
+    },
+    setIduser(state, value) {
+      state.iduser = value
     },
     setCinema(state, value) {
       state.cinema = value
@@ -68,6 +87,9 @@ export default new Vuex.Store({
     },
     setDialogc(state, value) {
       state.dialogc = value
+    },
+    setDialogs(state, value) {
+      state.dialogs = value
     },
     setDialogcf(state, value) {
       state.dialogcf = value
@@ -90,8 +112,14 @@ export default new Vuex.Store({
     setAdminui(state, value) {
       state.adminui = value
     },
-    addOrder(state, value) {
-      state.orders.push(value)
+    addTocart(state, value) {
+      state.cart.push(value)
+    },
+    setIddeletemenu(state, value) {
+      state.iddeletemenu = value
+    },
+    setIdupdatemenu(state, value) {
+      state.idupdatemenu = value
     }
   },
   actions: {
@@ -127,11 +155,17 @@ export default new Vuex.Store({
     setDialogCancleAction(context, value) {
       context.commit('setDialogc', value)
     },
+    setIduserAction(context, value) {
+      context.commit('setIduser', value)
+    },
     setDialogConfirmAction(context, value) {
       context.commit('setDialogcf', value)
     },
     setDialoguCancleAction(context, value) {
       context.commit('setDialogu', value)
+    },
+    setDialogsAction(context, value) {
+      context.commit('setDialogs', value)
     },
     setDialogdCancleAction(context, value) {
       context.commit('setDialogd', value)
@@ -150,6 +184,15 @@ export default new Vuex.Store({
     },
     setCinemaAction(context, value) {
       context.commit('setCinema', value)
+    },
+    setIddeletemenuAction(context, value) {
+      context.commit('setIddeletemenu', value)
+    },
+    setIdupdatemenuAction(context, value) {
+      context.commit('setIdupdatemenu', value)
+    },
+    AddtocartAction(context, value) {
+      context.commit('addTocart', value)
     }
   },
   modules: {

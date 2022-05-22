@@ -111,7 +111,7 @@ export default {
       }
     }).then((response) => {
       this.menus = response.data
-      this.getnameMenu(response.data.menu_list)
+      // this.getnameMenu(response.data)
       console.log(this.menus)
     }).catch((error) => {
       console.error(error)
@@ -181,19 +181,6 @@ export default {
           })
       }
     }
-  },
-  async getnameMenu() {
-    axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order/menu'`${this.menus.menu_list}`, {
-      headers: {
-        Authorization: `Bearer ${await Token()}`
-      }
-    })
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
   }
 }
 </script>

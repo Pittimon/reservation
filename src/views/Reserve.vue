@@ -12,12 +12,19 @@
                 <v-col md="2" class="mx-0 pa-1 body-2" v-for="(item, id) in $store.state.cinema.filter(arr => arr.row === item.row)" :key="id">
                   <p>{{ item.seat }} :
                     <span v-if="item.reserved && !$store.state.adminui" class="primary--text">จองแล้ว</span>
-                    <span @click="showinfo(item)" v-if="item.reserved && $store.state.adminui" class="primary--text">จองแล้ว</span>
+                    <span @click="showinfo(item.user)" v-else-if="item.reserved && $store.state.adminui" class="primary--text">จองแล้ว</span>
                     <span v-else class="success--text">ยังว่าง</span>
                   </p>
                 </v-col>
               </v-row>
             </v-container>
+            <v-dialog
+              transition="dialog-bottom-transition"
+              max-width="600"
+              v-model="$store.getters.dialogs"
+            >
+              <Showinfo :id='$store.getters.iduser'/>
+            </v-dialog>
             <v-footer height="40" class="white">
               <p class="subtitle-2 brown--text pt-1">Home</p>
             </v-footer>
@@ -39,19 +46,43 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import axios from 'axios'
 import Administrator from '../components/Administrator.vue'
 import Reservation from '../components/Reservation.vue'
+import Showinfo from '../components/showinfo.vue'
+import Token from '@/common/getToken'
 
 export default {
   name: 'Reserve',
-
+  data() {
+    return {
+      userinfo: {}
+    }
+  },
   components: {
     Administrator,
-    Reservation
+    Reservation,
+    Showinfo
   },
   methods: {
-    showinfo(item) {
+    async showinfo(item) {
       console.log(item)
+      await axios.get(`https://us-central1-reservation-1137b.cloudfunctions.net/api/auth/user/${item}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${await Token()}`
+        }
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.userinfo = response.data
+          this.$store.dispatch('setIduserAction', response.data)
+          this.$store.dispatch('setDialogsAction', true)
+        })
+        .catch((error) => {
+          console.error(error)
+          console.log('no photo')
+        })
     }
   },
   async created() {
