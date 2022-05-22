@@ -76,7 +76,7 @@
               color="#704232"
               ></v-textarea>
             <v-card-actions class="px-4">
-              <v-btn color="#704232" @click="addtocart(menu.id)" block dark class="withoutupercase mb-2">Add to cart</v-btn>
+              <v-btn color="#704232" block dark class="withoutupercase mb-2">Add to cart</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -120,6 +120,7 @@ export default {
       this.dialogd = true
       this.$store.dispatch('setDialogdCancleAction', this.dialogd)
       console.log(this.$store.state.dialogd)
+      console.log()
     }
   },
   created() {

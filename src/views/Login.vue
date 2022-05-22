@@ -36,9 +36,7 @@
             <v-icon class="icon" style="left:10px;">mdi-lock</v-icon>
           </div>
         </div>
-        <router-link class="forgotpassword" :to="{ name: 'ForgotPassword' }">
-          Forgot your Password?
-        </router-link>
+        <br>
         <v-btn :loading="loading" rounded depressed @click.prevent="login">Sign In</v-btn>
         <div class="angle"></div>
       </form>
