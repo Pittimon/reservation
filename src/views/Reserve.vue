@@ -75,7 +75,6 @@ export default {
       })
         .then((response) => {
           console.log(response.data)
-          this.userinfo = response.data
           this.$store.dispatch('setIduserAction', response.data)
           this.$store.dispatch('setDialogsAction', true)
         })

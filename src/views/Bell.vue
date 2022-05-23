@@ -9,7 +9,7 @@
             class="f-flex align-center rounded-lg mx-2" height="350" flat>
             <v-list-item class="text-center mt-10" active-class="border">
               <v-list-item-content>
-                    <v-icon size="300" color="#704232">mdi-bell</v-icon>
+                    <v-icon @click="notify" size="300" color="#704232">mdi-bell</v-icon>
               </v-list-item-content>
             </v-list-item>
             </v-card>
@@ -24,9 +24,6 @@
                   Table No.1
                 </v-list-item-title>
                 <v-list-item-subtitle class="mt-1">Press the bell to call waiter/waitress</v-list-item-subtitle>
-                <strong class="mt-3">
-                  rest for 15 sec
-                </strong>
               </v-list-item-content>
             </v-list-item>
             </v-card>
@@ -38,16 +35,31 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'Bell',
-
+  data() {
+    return {
+    }
+  },
   components: {
   },
   methods: {
-  },
-  data() {
-    return {}
+    async notify() {
+      axios.post('https://us-central1-reservation-1137b.cloudfunctions.net/api/notify', {
+        message: 'ลูกค้าหน้าร้านเรียกค่ะ'
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+        console.log(response.data)
+      })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
   }
 }
 </script>

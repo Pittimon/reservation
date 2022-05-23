@@ -23,7 +23,7 @@ export default new Vuex.Store({
     ],
     cart: [],
     iddeletemenu: '',
-    idupdatemenu: ''
+    idupdatemenu: '',
     orders: [],
     foodsInCart: [],
     allOrder: {
@@ -76,6 +76,7 @@ export default new Vuex.Store({
     },
     idupdatemenu(state) {
       return state.idupdatemenu
+    },
     orders(state) {
       return state.orders
     },
@@ -134,6 +135,7 @@ export default new Vuex.Store({
     },
     setIdupdatemenu(state, value) {
       state.idupdatemenu = value
+    },
     addOrder(state, value) {
       state.orders.push(value)
     },
