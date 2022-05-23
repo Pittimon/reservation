@@ -86,12 +86,12 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 import SideBarRight from '../components/SideBarRight.vue'
 import axo from '../common/mainaxios'
 import UpdateMenu from '@/components/UpdateMenu.vue'
 import DeleteMenu from '@/components/DeleteMenu.vue'
-// import Token from '@/common/getToken'
+import Token from '@/common/getToken'
 
 export default {
   name: 'Menu',
@@ -122,12 +122,62 @@ export default {
       console.log(this.$store.state.dialogd)
       console.log(menu)
     },
-    addtocart(menu) {
-      this.$store.dispatch('AddtocartAction', menu)
-      this.$store.dispatch('SentorderAction', menu.id)
-      console.log(this.$store.state.cart)
-      console.log(this.$store.state.sentorder)
-      console.log(menu)
+    async addtocartPink(menu) {
+      /*    const options = {
+        method: 'POST',
+        url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order',
+        headers: {'Content-Type': 'application/json', Authorization: 'Bearer bearerToken'},
+        data: {menu_list: ['string']}
+      }; */
+
+      axios.post('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
+        menu_list: [menu]
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${await Token()}`
+        }
+      }).then((response) => {
+        console.log(response.data)
+      }).catch((error) => {
+        console.error(error)
+      })
+    },
+    async addtocart(menu) {
+      const foods = this.$store.state.foodsInCart
+      const myAllOrder = this.$store.state.allOrder
+      console.log({ myAllOrder })
+      console.log('oldFoods', foods)
+      console.log('menu', menu)
+      const a = foods.find((item) => { return (item.id === menu.id) })
+      if (!a) {
+        foods.push({
+          ...menu,
+          num: 1
+        })
+        this.$store.dispatch('setAddToCartAction', foods)
+      } else {
+        console.log('else')
+        const b = a.num + 1
+        const index = foods.findIndex((object) => {
+          return object.id === menu.id
+        })
+        if (index !== -1) {
+          foods[index].num = b
+          this.$store.dispatch('setAddToCartAction', foods)
+        }
+        // a.num = this.a.num + 1
+        console.log(a.num + 1)
+      }
+      console.log('typeof myAllOrder.menu_list', myAllOrder.menu_list)
+      console.log(myAllOrder)
+      myAllOrder.menu_list.push(menu.id.toString())
+      const x = myAllOrder.total_price
+      console.log(myAllOrder)
+      const total = x + menu.price
+      myAllOrder.total_price = total
+      console.log('plus', total)
+      this.$store.dispatch('setAllOrderAction', myAllOrder)
     }
   },
   created() {

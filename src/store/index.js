@@ -24,6 +24,12 @@ export default new Vuex.Store({
     cart: [],
     iddeletemenu: '',
     idupdatemenu: ''
+    orders: [],
+    foodsInCart: [],
+    allOrder: {
+      menu_list: [],
+      total_price: 0
+    }
   },
   getters: {
     cinema(state) {
@@ -70,6 +76,14 @@ export default new Vuex.Store({
     },
     idupdatemenu(state) {
       return state.idupdatemenu
+    orders(state) {
+      return state.orders
+    },
+    foodsInCart(state) {
+      return state.foodsInCart
+    },
+    allOrder(state) {
+      return state.allOrder
     }
   },
   mutations: {
@@ -120,6 +134,14 @@ export default new Vuex.Store({
     },
     setIdupdatemenu(state, value) {
       state.idupdatemenu = value
+    addOrder(state, value) {
+      state.orders.push(value)
+    },
+    setAddToCart(state, value) {
+      state.foodsInCart = value
+    },
+    setAllOrder(state, value) {
+      state.allOrder = value
     }
   },
   actions: {
@@ -193,6 +215,12 @@ export default new Vuex.Store({
     },
     AddtocartAction(context, value) {
       context.commit('addTocart', value)
+    },
+    setAddToCartAction(context, value) {
+      context.commit('setAddToCart', value)
+    },
+    setAllOrderAction(context, value) {
+      context.commit('setAllOrder', value)
     }
   },
   modules: {
