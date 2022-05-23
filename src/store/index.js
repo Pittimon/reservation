@@ -91,7 +91,12 @@ export default new Vuex.Store({
         id: 24, seat: 'D6', row: 'D', col: 6, reserved: false
       }
     ],
-    orders: []
+    orders: [],
+    foodsInCart: [],
+    allOrder: {
+      menu_list: [],
+      total_price: 0
+    }
   },
   getters: {
     cinema(state) {
@@ -126,6 +131,12 @@ export default new Vuex.Store({
     },
     orders(state) {
       return state.orders
+    },
+    foodsInCart(state) {
+      return state.foodsInCart
+    },
+    allOrder(state) {
+      return state.allOrder
     }
   },
   mutations: {
@@ -164,6 +175,12 @@ export default new Vuex.Store({
     },
     addOrder(state, value) {
       state.orders.push(value)
+    },
+    setAddToCart(state, value) {
+      state.foodsInCart = value
+    },
+    setAllOrder(state, value) {
+      state.allOrder = value
     }
   },
   actions: {
@@ -222,6 +239,12 @@ export default new Vuex.Store({
     },
     setCinemaAction(context, value) {
       context.commit('setCinema', value)
+    },
+    setAddToCartAction(context, value) {
+      context.commit('setAddToCart', value)
+    },
+    setAllOrderAction(context, value) {
+      context.commit('setAllOrder', value)
     }
   },
   modules: {

@@ -105,14 +105,45 @@ export default {
       headers: {Authorization: 'Bearer bearerToken'}
     }; */
 
-    axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
-      headers: {
-        Authorization: `Bearer ${await Token()}`
-      }
-    }).then((response) => {
-      this.menus = response.data
-      this.getnameMenu(response.data.menu_list)
-      console.log(this.menus)
+    // axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order', {
+    //   headers: {
+    //     Authorization: `Bearer ${await Token()}`
+    //   }
+    // }).then((response) => {
+    //   this.menus = response.data
+    //   // this.getnameMenu(response.data.menu_list)
+    //   console.log(this.menus)
+    // }).catch((error) => {
+    //   console.error(error)
+    // })
+    const options = {
+      method: 'GET',
+      url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order',
+      headers: { Authorization: `Bearer ${await Token()}` }
+    }
+    axios.request(options).then((response) => {
+      console.log(response.data)
+      const data = { ...response.data }
+      console.log(data)
+      const x = [
+        {
+          id: '',
+          menu_list: []
+        }
+      ]
+      response.data.forEach((el, index) => {
+        el.menu_list.forEach((ele) => {
+          this.getData(ele)
+        })
+        const a = {
+          id: el.id,
+          menu_list: el.menu_list
+        }
+        console.log(a)
+        console.log(index)
+        console.log(el.menu_list)
+      })
+      console.log(x)
     }).catch((error) => {
       console.error(error)
     })
@@ -182,8 +213,8 @@ export default {
       }
     }
   },
-  async getnameMenu() {
-    axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order/menu'`${this.menus.menu_list}`, {
+  async getnameMenu(ele) {
+    axios.get('https://us-central1-reservation-1137b.cloudfunctions.net/api/order/menu'`${ele}`, {
       headers: {
         Authorization: `Bearer ${await Token()}`
       }
@@ -194,6 +225,17 @@ export default {
       .catch((error) => {
         console.error(error)
       })
+  },
+  async getData() {
+    const options = {
+      method: 'GET',
+      url: 'https://us-central1-reservation-1137b.cloudfunctions.net/api/order/menu'`${this.menus.menu_list}`
+    }
+    axios.request(options).then((response) => {
+      console.log(response.data)
+    }).catch((error) => {
+      console.error(error)
+    })
   }
 }
 </script>
