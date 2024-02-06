@@ -1,11 +1,8 @@
 
-@Library('share-lib-pink-kpi') _
 pipeline {
     agent {label 'slave01'}
     parameters {
-        string(defaultValue: '' , description: '***REQUIRE_FIELD*** “Please put your application go-live month from the following format “MONTH_YEAR”. Example Jan_2022', name: 'release')
-        text (defaultValue: '' , description: 'Multiple git repositories or branches scan is available by new line (1 line 1 URL). GitURL path example: git@gitdop.se.example.com:project/microservice.git;branch”.  Please make sure than semicolon (“;”) is used before branch.', name: 'gitURL')
-        // text (defaultValue: null, description: 'Multiple images scan is available by new line (1 line 1 image). Image path example: facility/devsecops/python_ci:1.6', name: 'imageName')
+    
     }
     environment {
         covPath = "/apps/devsecops/coverity/cov-analysis-linux64-2023.9.2/bin"
@@ -32,65 +29,25 @@ pipeline {
         stage('PrepareCode') {
             steps {
                 script {
-                    echo "Clone git repo from ${gitURL}"
-                    sh "git clone ${gitURL}"
+                    echo "test1234"
                     sh "ls -l"
-                def codeDir = sh(
-                    script: "ls",
-                    returnStdout: true
-                ).trim()
-                env.project = codeDir   
-                echo "Found code directory: ${env.project}"
-                env.Coverity_scan = "PASS"
-                env.Blackduck_scan = "NOT_EXECUTED"
-                env.Prisma_scan = "NOT_EXECUTED"
                     
                 }
             }
         }
 
-        stage('SAST') {
-            steps {
-                coverity()
-            }
-        }
-
-        stage('SCA') {
-            steps {
-                blackduck()
-            }
-        }
-
-
-        stage('ContainerSecCp') {
-            steps {
-                prisma()
-            }
-        }
-
-        // stage('Report'){
-        //     steps {
-        //         report()
-        //     }
-        // }
         
-        stage('ImportReport'){
-            steps {
-                importreport()
-            }
-        }
-    }
 
 
 post {
     always {
         // archiveArtifacts artifacts: "*.xlsx, *.pdf", onlyIfSuccessful: true
         deleteDir()
-        script {
-            sh '''
-                rm -f ${scriptPath}/*.json
-            '''
-        }
+        // script {
+        //     sh '''
+        //         rm -f ${scriptPath}/*.json
+        //     '''
+        // }
     }
 }
 
