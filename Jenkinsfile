@@ -29,9 +29,37 @@ pipeline {
                 script {
                     REPO_NAME = sh(script: 'basename -s .git `git config --get remote.origin.url`', returnStdout: true).trim()
                     println(REPO_NAME)
+                    env.project = REPO_NAME
+                    env.release = BUILD_NUMBER
                 }
                     
             }
+
+            stage('SAST') {
+                steps {
+                    coverity()
+                }
+            }
+
+            stage('SCA') {
+                steps {
+                    blackduck()
+                }
+            }
+
+
+            // stage('ContainerSecCp') {
+            //     steps {
+            //         prisma()
+            //     }
+            // }
+
+            stage('ImportReport'){
+                steps {
+                    importreport()
+                }
+        }
+
         }
     }
 
@@ -42,11 +70,11 @@ post {
     always {
         // archiveArtifacts artifacts: "*.xlsx, *.pdf", onlyIfSuccessful: true
         deleteDir()
-        // script {
-        //     sh '''
-        //         rm -f ${scriptPath}/*.json
-        //     '''
-        // }
+        script {
+            sh '''
+                rm -f ${scriptPath}/*.json
+            '''
+        }
     }
 }
 
