@@ -31,6 +31,9 @@ pipeline {
                     println(REPO_NAME)
                     env.project = REPO_NAME
                     env.release = BUILD_NUMBER
+                    env.Coverity_scan = "NOT_EXECUTED"
+                    env.Blackduck_scan = "NOT_EXECUTED"
+                    env.Prisma_scan = "NOT_EXECUTED"
                 }
                     
             }
