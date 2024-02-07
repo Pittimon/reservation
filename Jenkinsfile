@@ -1,9 +1,7 @@
 
 pipeline {
     agent {label 'slave01'}
-    parameters {
-    
-    }
+
     environment {
         covPath = "/apps/devsecops/coverity/cov-analysis-linux64-2023.9.2/bin"
         covUrl = "https://192.168.172.101:8443/"
