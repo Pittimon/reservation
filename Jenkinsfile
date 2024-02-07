@@ -34,34 +34,35 @@ pipeline {
                 }
                     
             }
-
-            stage('SAST') {
-                steps {
-                    coverity()
-                }
-            }
-
-            stage('SCA') {
-                steps {
-                    blackduck()
-                }
-            }
-
-
-            // stage('ContainerSecCp') {
-            //     steps {
-            //         prisma()
-            //     }
-            // }
-
-            stage('ImportReport'){
-                steps {
-                    importreport()
-                }
         }
 
+        stage('SAST') {
+            steps {
+                coverity()
+            }
         }
+
+        stage('SCA') {
+            steps {
+                blackduck()
+            }
+        }
+
+
+        // stage('ContainerSecCp') {
+        //     steps {
+        //         prisma()
+        //     }
+        // }
+
+        stage('ImportReport'){
+            steps {
+                importreport()
+            }
+        }
+
     }
+
 
         
 
