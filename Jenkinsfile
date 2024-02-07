@@ -1,4 +1,4 @@
-
+@Library('share-lib-pink-kpi') _
 pipeline {
     agent {label 'slave01'}
 
