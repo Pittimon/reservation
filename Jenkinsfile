@@ -27,8 +27,7 @@ pipeline {
         stage('PrepareCode') {
             steps {
                 script {
-                    echo "test1234"
-                    sh "ls -l"
+                    sh "env"
                 }
                     
             }
