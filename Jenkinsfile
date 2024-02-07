@@ -27,7 +27,8 @@ pipeline {
         stage('PrepareCode') {
             steps {
                 script {
-                    sh "env"
+                    REPO_NAME = sh(script: 'basename -s .git `git config --get remote.origin.url`', returnStdout: true).trim()
+                    println(REPO_NAME)
                 }
                     
             }
